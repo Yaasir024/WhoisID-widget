@@ -1,7 +1,7 @@
 <script setup>
-import { useCounterStore } from "@/stores/counter";
+import { useVerificationStore } from "@/stores/verification";
 
-const store = useCounterStore();
+const useVerification = useVerificationStore();
 
 const liveAtDropdown = ref(null);
 const showLiveAtDropdown = ref(false);
@@ -13,6 +13,54 @@ useClickOutside(liveAtDropdown, () => {
 const addLiveAt = (i) => {
   useVerification.data.address.still_live_at = i;
   showLiveAtDropdown.value = false;
+};
+
+// REASON
+const reasonDropdown = ref(null);
+const showReasonDropdown = ref(false);
+
+useClickOutside(reasonDropdown, () => {
+  showReasonDropdown.value = false;
+});
+const addReason = (i) => {
+  useVerification.data.address.reason = i;
+  showReasonDropdown.value = false;
+};
+// STATE
+const stateDropdown = ref(null);
+const showStateDropdown = ref(false);
+
+useClickOutside(stateDropdown, () => {
+  showStateDropdown.value = false;
+});
+const addState = (i) => {
+  useVerification.data.address.state = i;
+  showStateDropdown.value = false;
+};
+// LENGTH
+const lengthDropdown = ref(null);
+const showLengthDropdown = ref(false);
+
+useClickOutside(lengthDropdown, () => {
+  showLengthDropdown.value = false;
+});
+const addlength = (i) => {
+  useVerification.data.address.length_of_living = i;
+  showLengthDropdown.value = false;
+};
+
+const prev = () => {
+  useVerification.nextSection("start");
+  useVerification.data.address = {
+    still_live_at: "",
+    reason: "relocation",
+    full_address: "",
+    state: "",
+    lga: "",
+    landmark: "",
+    length_of_living: "",
+    alias: "",
+  };
 };
 </script>
 
@@ -47,7 +95,7 @@ const addLiveAt = (i) => {
             <div class="flex flex-col cursor-pointer">
               <span
                 class="text-[16px] leading-[29px] text-[#667085] font-medium mb-[8px]"
-                >Country</span
+                >Full address</span
               >
               <div class="">
                 <div
@@ -60,6 +108,7 @@ const addLiveAt = (i) => {
               </div>
             </div>
           </div>
+          <!--  -->
           <div class="fields mt-[24px]">
             <div class="flex flex-col">
               <span
@@ -72,7 +121,7 @@ const addLiveAt = (i) => {
                   @click="showLiveAtDropdown = !showLiveAtDropdown"
                 >
                   <span
-                    class="text-[14px] leading-[25px] text-[#D0D5DD]"
+                    class="text-[14px] leading-[25px] text-[#D0D5DD] capitalize"
                     v-if="useVerification.data.address.still_live_at != ''"
                     >{{ useVerification.data.address.still_live_at }}</span
                   >
@@ -121,6 +170,7 @@ const addLiveAt = (i) => {
                     type="text"
                     placeholder="Enter landmark"
                     class="w-full outline-none"
+                    v-model="useVerification.data.address.landmark"
                   />
                 </div>
               </div>
@@ -132,6 +182,7 @@ const addLiveAt = (i) => {
               </div>
             </div>
           </div>
+          <!--  -->
           <div class="fields mt-[24px]">
             <div class="flex flex-col cursor-pointer">
               <span
@@ -146,6 +197,7 @@ const addLiveAt = (i) => {
                     type="text"
                     placeholder="e.g Chief Adeola"
                     class="w-full outline-none"
+                    v-model="useVerification.data.address.alias"
                   />
                 </div>
               </div>
@@ -169,35 +221,46 @@ const addLiveAt = (i) => {
                 class="text-[16px] leading-[29px] text-[#667085] font-medium mb-[8px]"
                 >Reason for change</span
               >
-              <div class="relative">
+              <div class="relative" ref="reasonDropdown">
                 <div
-                  class="flex items-center justify-between h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
+                  class="flex items-center justify-between h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg cursor-pointer"
+                  @click="showReasonDropdown = !showReasonDropdown"
                 >
-                  <span class="text-[14px] leading-[25px] text-[#D0D5DD]"
+                  <span
+                    class="text-[14px] leading-[25px] text-[#D0D5DD] capitalize"
+                    v-if="useVerification.data.address.reason != ''"
+                    >{{ useVerification.data.address.reason }}</span
+                  >
+                  <span class="text-[14px] leading-[25px] text-[#D0D5DD]" v-else
                     >Relocation</span
                   >
                   <img src="@/assets/icon/dropdown.svg" alt="" class="" />
                 </div>
-                <div
-                  class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
-                  v-if="false"
-                >
+                <transition name="menu">
                   <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
+                    class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
+                    v-if="showReasonDropdown"
                   >
-                    Incomplete address
+                    <div
+                      class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out cursor-pointer"
+                      @click="addReason('incomplete address')"
+                    >
+                      Incomplete address
+                    </div>
+                    <div
+                      class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out cursor-pointer"
+                      @click="addReason('never lived in the address')"
+                    >
+                      Never lived in the address
+                    </div>
+                    <div
+                      class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out cursor-pointer"
+                      @click="addReason('relocation')"
+                    >
+                      Relocation
+                    </div>
                   </div>
-                  <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
-                  >
-                    Never lived in the address
-                  </div>
-                  <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
-                  >
-                    Relocation
-                  </div>
-                </div>
+                </transition>
               </div>
             </div>
           </div>
@@ -214,49 +277,51 @@ const addLiveAt = (i) => {
                 >
                   <input
                     type="text"
-                    placeholder="8, Yaba street, Oregun, Ikeja"
+                    placeholder="e.g 8, Yaba street, Oregun, Ikeja"
                     class="w-full outline-none"
+                    v-model="useVerification.data.address.full_address"
                   />
                 </div>
               </div>
             </div>
           </div>
-          <!--  -->
+          <!--TASKI  -->
           <div class="fields mt-[24px]">
             <div class="flex flex-col">
               <span
                 class="text-[16px] leading-[29px] text-[#667085] font-medium mb-[8px]"
                 >State</span
               >
-              <div class="relative">
+              <div class="relative" ref="stateDropdown">
                 <div
-                  class="flex items-center justify-between h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
+                  class="flex items-center justify-between h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg cursor-pointer"
+                  @click="showStateDropdown = !showStateDropdown"
                 >
-                  <span class="text-[14px] leading-[25px] text-[#D0D5DD]"
-                    >Lagos</span
+                  <span
+                    class="text-[14px] leading-[25px] text-[#D0D5DD]"
+                    v-if="useVerification.data.address.state != ''"
+                    >{{ useVerification.data.address.state }}</span
+                  >
+                  <span class="text-[14px] leading-[25px] text-[#D0D5DD]" v-else
+                    >Choose state</span
                   >
                   <img src="@/assets/icon/dropdown.svg" alt="" class="" />
                 </div>
-                <div
-                  class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
-                  v-if="false"
-                >
+                <transition name="menu">
                   <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
+                    class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20 max-h-[200px] overflow-y-auto"
+                    v-if="showStateDropdown"
                   >
-                    Incomplete address
+                    <div
+                      class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out cursor-pointer"
+                      v-for="(state, index) in useVerification.states.nigeria"
+                      :key="index"
+                      @click="addState(state)"
+                    >
+                      {{ state }}
+                    </div>
                   </div>
-                  <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
-                  >
-                    Never lived in the address
-                  </div>
-                  <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
-                  >
-                    Relocation
-                  </div>
-                </div>
+                </transition>
               </div>
             </div>
           </div>
@@ -275,6 +340,7 @@ const addLiveAt = (i) => {
                     type="text"
                     placeholder="Ikeja"
                     class="w-full outline-none"
+                    v-model="useVerification.data.address.lga"
                   />
                 </div>
               </div>
@@ -295,6 +361,7 @@ const addLiveAt = (i) => {
                     type="text"
                     placeholder="Enter landmark"
                     class="w-full outline-none"
+                    v-model="useVerification.data.address.landmark"
                   />
                 </div>
               </div>
@@ -313,35 +380,40 @@ const addLiveAt = (i) => {
                 class="text-[16px] leading-[29px] text-[#667085] font-medium mb-[8px]"
                 >How long have you lived at this address?</span
               >
-              <div class="relative">
+              <div class="relative" ref="lengthDropdown">
                 <div
-                  class="flex items-center justify-between h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
+                  class="flex items-center justify-between h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg cursor-pointer"
+                  @click="showLengthDropdown = !showLengthDropdown"
                 >
-                  <span class="text-[14px] leading-[25px] text-[#D0D5DD]"
+                  <span
+                    class="text-[14px] leading-[25px] text-[#D0D5DD]"
+                    v-if="useVerification.data.address.length_of_living != ''"
+                    >{{ useVerification.data.address.length_of_living }}</span
+                  >
+                  <span class="text-[14px] leading-[25px] text-[#D0D5DD]" v-else
                     >Less than three months</span
                   >
                   <img src="@/assets/icon/dropdown.svg" alt="" class="" />
                 </div>
-                <div
-                  class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
-                  v-if="false"
-                >
+                <transition name="menu">
                   <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
+                    class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
+                    v-if="showLengthDropdown"
                   >
-                    Incomplete address
+                    <div
+                      class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out cursor-pointer"
+                      @click="addlength('Less than three months')"
+                    >
+                      Less than three months
+                    </div>
+                    <div
+                      class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out cursor-pointer"
+                      @click="addlength('More than three months')"
+                    >
+                      More than three months
+                    </div>
                   </div>
-                  <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
-                  >
-                    Never lived in the address
-                  </div>
-                  <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
-                  >
-                    Relocation
-                  </div>
-                </div>
+                </transition>
               </div>
             </div>
           </div>
@@ -360,6 +432,7 @@ const addLiveAt = (i) => {
                     type="text"
                     placeholder="e.g Chief Adeola"
                     class="w-full outline-none"
+                    v-model="useVerification.data.address.alias"
                   />
                 </div>
               </div>
@@ -372,6 +445,8 @@ const addLiveAt = (i) => {
             </div>
           </div>
         </div>
+
+        <!--  -->
         <div class="mt-[56px]" v-if="useVerification.data.still_live_at != ''">
           <ReuseableButton text="Continue" :checked="true" />
           <div class="flex justify-center w-full mt-[10px]">
@@ -395,6 +470,18 @@ const addLiveAt = (i) => {
 </template>
 
 <style scoped>
+/* Menu Animation */
+.menu-enter-active,
+.menu-leave-active {
+  transition: transform 0.3s ease;
+  transform-origin: top left;
+}
+
+.menu-enter-from,
+.menu-leave-to {
+  transform: scale(0);
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

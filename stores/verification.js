@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 export const useVerificationStore = defineStore("verification", () => {
-  const currentSection = ref("start");
+  const currentSection = ref("address");
 
   const nextSection = (section) => {
     currentSection.value = section;
@@ -12,7 +12,7 @@ export const useVerificationStore = defineStore("verification", () => {
     phone: "",
     address: {
       still_live_at: "",
-      reason: "",
+      reason: "relocation",
       full_address: "",
       state: "",
       lga: "",
