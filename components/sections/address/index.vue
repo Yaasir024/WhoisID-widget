@@ -50,7 +50,7 @@ const addlength = (i) => {
 };
 
 const prev = () => {
-  useVerification.nextSection("start");
+  useVerification.nextSection("selfie-registered");
   useVerification.data.address = {
     still_live_at: "",
     reason: "relocation",
