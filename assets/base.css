@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+@font-face {
+  font-family: "Millik Regular";
+  src: url("./fonts/Millik Regular.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Euclid Circular";
+  src: url("./fonts/Euclid-Circular-A-Regular.ttf") format("truetype"),
+    url("./fonts/Euclid-Circular-A-Medium.ttf") format("truetype"),
+    url("./fonts/Euclid-Circular-A-SemiBold.ttf") format("truetype"),
+    url("./fonts/Euclid-Circular-A-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Commons Medium";
+  src: url("./fonts/TT-Commons-Medium.otf") format("opentype"),
+    url("./fonts/TT-Commons-Regular.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: #111727;
+  background: #F5F5F5;
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: "Euclid Circular", sans-serif;
+  font-size: 15px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
