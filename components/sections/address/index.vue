@@ -1,11 +1,19 @@
 <script setup>
+import { useCounterStore } from "@/stores/counter";
 
-import {useCounterStore} from '@/stores/counter'
-const checked = ref(false);
+const store = useCounterStore();
 
-const privacy = ref(false);
+const liveAtDropdown = ref(null);
+const showLiveAtDropdown = ref(false);
 
-const store = useCounterStore()
+useClickOutside(liveAtDropdown, () => {
+  showLiveAtDropdown.value = false;
+});
+
+const addLiveAt = (i) => {
+  useVerification.data.address.still_live_at = i;
+  showLiveAtDropdown.value = false;
+};
 </script>
 
 <template>
@@ -58,26 +66,34 @@ const store = useCounterStore()
                 class="text-[16px] leading-[29px] text-[#667085] font-medium mb-[8px]"
                 >Do you still live at this address?</span
               >
-              <div class="relative">
+              <div class="relative" ref="liveAtDropdown">
                 <div
                   class="flex items-center justify-between h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
+                  @click="showLiveAtDropdown = !showLiveAtDropdown"
                 >
-                  <span class="text-[14px] leading-[25px] text-[#D0D5DD]"
+                  <span
+                    class="text-[14px] leading-[25px] text-[#D0D5DD]"
+                    v-if="useVerification.data.address.still_live_at != ''"
+                    >{{ useVerification.data.address.still_live_at }}</span
+                  >
+                  <span class="text-[14px] leading-[25px] text-[#D0D5DD]" v-else
                     >Select a response</span
                   >
                   <img src="@/assets/icon/dropdown.svg" alt="" class="" />
                 </div>
                 <div
                   class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
-                  v-if="false"
+                  v-if="showLiveAtDropdown"
                 >
                   <div
                     class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
+                    @click="addLiveAt('yes')"
                   >
                     Yes
                   </div>
                   <div
                     class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
+                    @click="addLiveAt('no')"
                   >
                     No
                   </div>
@@ -87,7 +103,10 @@ const store = useCounterStore()
           </div>
         </div>
         <!-- USER LIVING IN THE SAME ADDRESS -->
-        <div class="mt-[24px]" v-if="false">
+        <div
+          class="mt-[24px]"
+          v-if="useVerification.data.address.still_live_at == 'yes'"
+        >
           <div class="fields">
             <div class="flex flex-col cursor-pointer">
               <span
@@ -140,7 +159,10 @@ const store = useCounterStore()
           </div>
         </div>
         <!-- USER’S ADDRESS CHANGED -->
-        <div class="mt-[24px]">
+        <div
+          class="mt-[24px]"
+          v-if="useVerification.data.address.still_live_at == 'no'"
+        >
           <div class="fields mt-[24px]">
             <div class="flex flex-col">
               <span
@@ -350,7 +372,7 @@ const store = useCounterStore()
             </div>
           </div>
         </div>
-        <div class="mt-[56px]">
+        <div class="mt-[56px]" v-if="useVerification.data.still_live_at != ''">
           <ReuseableButton text="Continue" :checked="true" />
           <div class="flex justify-center w-full mt-[10px]">
             <button class="flex items-center">

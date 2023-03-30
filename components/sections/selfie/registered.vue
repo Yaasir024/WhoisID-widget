@@ -1,7 +1,23 @@
 <script setup>
-const checked = ref(false);
+import { useVerificationStore } from "@/stores/verification";
 
-const privacy = ref(false);
+const useVerification = useVerificationStore();
+
+const useSelfie = () => {
+  useVerification.nextSection("address");
+  // if (
+  //   (useVerification.data.country != "") &
+  //   (useVerification.data.phone != "")
+  // ) {
+  //   useVerification.nextSection("selfie");
+  // }
+};
+
+const prev = () => {
+  useVerification.nextSection("selfie");
+  // useVerification.data.country = "";
+  // useVerification.data.phone = "";
+};
 </script>
 
 <template>
@@ -29,11 +45,7 @@ const privacy = ref(false);
         </h1>
         <div class="mt-[24px]">
           <div class="flex justify-center">
-            <img
-              src="@/assets/images/selfie.png"
-              alt=""
-              class="h-[280px]"
-            />
+            <img src="@/assets/images/selfie.png" alt="" class="h-[280px]" />
           </div>
           <div class="mt-[32px] flex justify-center">
             <button
@@ -49,11 +61,13 @@ const privacy = ref(false);
         <div class="mt-[40px] flex items-center justify-between">
           <button
             class="text-id-green-2 text-[18px] leading-[32px] font-semibold py-[10px] px-[36px] rounded-[48px] border border-id-green-2"
+            @click="prev()"
           >
             Retake selfie
           </button>
           <button
             class="bg-id-green-2 text-[#F2F4F7] text-[18px] leading-[32px] font-semibold py-[10px] px-[36px] rounded-[48px] border border-id-green-2"
+            @click="useSelfie()"
           >
             Use this one
           </button>
