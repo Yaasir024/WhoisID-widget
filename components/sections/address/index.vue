@@ -447,10 +447,10 @@ const prev = () => {
         </div>
 
         <!--  -->
-        <div class="mt-[56px]" v-if="useVerification.data.still_live_at != ''">
+        <div class="mt-[56px]" v-if="useVerification.data.address.still_live_at != ''">
           <ReuseableButton text="Continue" :checked="true" />
           <div class="flex justify-center w-full mt-[10px]">
-            <button class="flex items-center">
+            <button class="flex items-center" @click="prev()">
               <img
                 src="@/assets/images/arrow-left.svg"
                 alt=""
