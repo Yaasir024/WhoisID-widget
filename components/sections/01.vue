@@ -6,8 +6,8 @@ const useVerification = useVerificationStore();
 const countyDropdown = ref(null);
 const showDropdown = ref(false);
 
-const addCountry = (country) => {
-  useVerification.data.country = country;
+const addCountry = (i) => {
+//   useVerification.data.country = i;
   showDropdown.value = false
 };
 </script>
@@ -44,9 +44,10 @@ const addCountry = (country) => {
             <div class="relative" ref="countyDropdown">
               <div
                 class="flex items-center justify-between h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
+                @click="showDropdown = !showDropdown"
               >
                 <span
-                  class="text-[14px] leading-[25px] text-[#D0D5DD]"
+                  class="text-[14px] leading-[25px] text-[#D0D5DD] capitalize"
                   v-if="useVerification.data.country"
                   >{{ useVerification.data.country }}</span
                 >
@@ -57,7 +58,7 @@ const addCountry = (country) => {
               </div>
               <div
                 class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
-                v-if="true"
+                v-if="showDropdown"
               >
                 <div
                   class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"

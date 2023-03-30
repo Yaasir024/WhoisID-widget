@@ -15,7 +15,6 @@ const startVerification = () => {
 </script>
 
 <template>
-    {{ useVerification.data }}
   <section class="bg-white py-[22px]">
     <div class="flex items-center px-[18px]">
       <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
