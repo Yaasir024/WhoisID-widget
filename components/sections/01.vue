@@ -6,9 +6,28 @@ const useVerification = useVerificationStore();
 const countyDropdown = ref(null);
 const showDropdown = ref(false);
 
+useClickOutside(countyDropdown, () => {
+  showDropdown.value = false;
+});
+
 const addCountry = (i) => {
-//   useVerification.data.country = i;
-  showDropdown.value = false
+  useVerification.data.country = i;
+  showDropdown.value = false;
+};
+
+const next = () => {
+  if (
+    (useVerification.data.country != "") &
+    (useVerification.data.phone != "")
+  ) {
+    useVerification.nextSection("selfie");
+  }
+};
+
+const prev = () => {
+  useVerification.nextSection("start");
+  useVerification.data.country = "";
+  useVerification.data.phone = "";
 };
 </script>
 
@@ -56,17 +75,19 @@ const addCountry = (i) => {
                 >
                 <img src="@/assets/icon/dropdown.svg" alt="" class="" />
               </div>
-              <div
-                class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
-                v-if="showDropdown"
-              >
+              <transition name="menu">
                 <div
-                  class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
-                  @click="addCountry('nigeria')"
+                  class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
+                  v-if="showDropdown"
                 >
-                  Nigeria
+                  <div
+                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
+                    @click="addCountry('nigeria')"
+                  >
+                    Nigeria
+                  </div>
                 </div>
-              </div>
+              </transition>
             </div>
           </div>
         </div>
@@ -82,7 +103,11 @@ const addCountry = (i) => {
               >
                 <img src="@/assets/icon/flag-ng.svg" alt="" class="mr-[16px]" />
                 <span class="text-[14px] leading-[25px]">+234</span>
-                <input type="number" class="ml-[4px] outline-none w-full" />
+                <input
+                  type="number"
+                  class="ml-[4px] outline-none w-full"
+                  v-model="useVerification.data.phone"
+                />
               </div>
             </div>
           </div>
@@ -94,9 +119,12 @@ const addCountry = (i) => {
           >
         </div>
         <div class="mt-[56px]">
-          <ReuseableButton text="Continue" :checked="true" />
+          <ReuseableButton text="Continue" :checked="true" @click="next()" />
           <div class="flex justify-center w-full mt-[10px]">
-            <button class="flex items-center">
+            <button
+              class="flex items-center"
+              @click="prev()"
+            >
               <img
                 src="@/assets/images/arrow-left.svg"
                 alt=""
@@ -126,5 +154,17 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+/* Menu Animation */
+.menu-enter-active,
+.menu-leave-active {
+  transition: transform 0.3s ease;
+  transform-origin: top left;
+}
+
+.menu-enter-from,
+.menu-leave-to {
+  transform: scale(0);
 }
 </style>

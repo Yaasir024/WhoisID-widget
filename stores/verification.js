@@ -7,7 +7,7 @@ export const useVerificationStore = defineStore("verification", () => {
     currentSection.value = section;
   };
 
-  const data = ref({
+  const data = reactive({
     country: "",
     phone: "",
   });
