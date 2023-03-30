@@ -48,7 +48,15 @@ const addlength = (i) => {
   useVerification.data.address.length_of_living = i;
   showLengthDropdown.value = false;
 };
-
+const next = () => {
+  useVerification.nextSection("utility-capture");
+  //   if (
+  //     (useVerification.data.country != "") &
+  //     (useVerification.data.phone != "")
+  //   ) {
+  //     useVerification.nextSection("selfie");
+  //   }
+};
 const prev = () => {
   useVerification.nextSection("selfie-registered");
   useVerification.data.address = {
@@ -447,8 +455,11 @@ const prev = () => {
         </div>
 
         <!--  -->
-        <div class="mt-[56px]" v-if="useVerification.data.address.still_live_at != ''">
-          <ReuseableButton text="Continue" :checked="true" />
+        <div
+          class="mt-[56px]"
+          v-if="useVerification.data.address.still_live_at != ''"
+        >
+          <ReuseableButton text="Continue" :checked="true" @click="next()" />
           <div class="flex justify-center w-full mt-[10px]">
             <button class="flex items-center" @click="prev()">
               <img
