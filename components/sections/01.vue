@@ -34,13 +34,22 @@ const { data: country, error } = useAsyncData("country", async () => {
   return sortedData;
 });
 
-const selectedCountry = computed(() => {
-  // const selected = country.value.find((obj) => obj.name === useVerification.data.country);
-})
+const searchQuery = ref("");
+const filteredCountry = computed(() => {const query = ref(searchQuery.value.toLowerCase());
+  if (searchQuery.value === "") {
+    return country.value;
+  }
+  return country.value.filter((item) => {
+    return Object.values(item).some((word) =>
+      String(word).toLowerCase().includes(query.value)
+    );
+  });
+});
 
-const getCountryData = (count) => {
-  return country.value.find((obj) => obj.name === count)
-}
+
+const countryFullData = computed(() => {
+  return country.value.find((obj) => obj.name == useVerification.data.country);
+})
 
 const countyDropdown = ref(null);
 const showDropdown = ref(false);
@@ -52,6 +61,7 @@ useClickOutside(countyDropdown, () => {
 const addCountry = (i) => {
   useVerification.data.country = i;
   showDropdown.value = false;
+  searchQuery.value = "";
 };
 
 const next = () => {
@@ -116,16 +126,26 @@ const prev = () => {
               </div>
               <transition name="menu">
                 <div
-                  class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20 max-h-[250px] overflow-y-scroll"
+                  class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
                   v-if="showDropdown"
                 >
-                  <div
-                    class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
-                    v-for="(data, index) in country"
-                    :key="index"
-                    @click="addCountry(data.name)"
-                  >
-                    {{ data.name }}
+                  <div class="px-[16px] pt-[10px] pb-[5px] border-b">
+                    <input
+                      type="text"
+                      v-model="searchQuery"
+                      placeholder="Search for country"
+                      class="h-[34px] w-full px-1 border-2 rounded-md outline-none"
+                    />
+                  </div>
+                  <div class="max-h-[250px] overflow-y-scroll">
+                    <div
+                      class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
+                      v-for="(data, index) in filteredCountry"
+                      :key="index"
+                      @click="addCountry(data.name)"
+                    >
+                      {{ data.name }}
+                    </div>
                   </div>
                 </div>
               </transition>
@@ -142,9 +162,14 @@ const prev = () => {
               <div
                 class="flex items-center h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
               >
-                <!-- <img src="@/assets/icon/flag-ng.svg" alt="" class="mr-[16px]" /> -->
-                <img :src="getCountryData(useVerification.data.country).flag" alt="" class="mr-[16px] h-[20px] w-[24px]" />
-                <span class="text-[14px] leading-[25px]">{{ getCountryData(useVerification.data.country).code }}</span>
+                <img
+                  :src="countryFullData.flag"
+                  alt=""
+                  class="mr-[16px] h-[20px] w-[24px]"
+                />
+                <span class="text-[14px] leading-[25px]">{{
+                  countryFullData.code
+                }}</span>
                 <input
                   type="number"
                   class="ml-[4px] outline-none w-full"
