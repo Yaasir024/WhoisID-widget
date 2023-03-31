@@ -58,3 +58,7 @@ body {
   background-color: #d0d5dd;
   outline: 1px solid #d0d5dd;
 }
+* {
+  scrollbar-color: #d0d5dd;
+  scrollbar-width: 8px;
+}
