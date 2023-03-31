@@ -1,59 +1,58 @@
 <script setup>
+import countries from "@/data/countries.json";
+
 import { useVerificationStore } from "@/stores/verification";
 
 const useVerification = useVerificationStore();
 
 // FETCH DATA
 
-const { data: country, error } = useAsyncData("country", async () => {
-  const response = await $fetch(
-    "https://restcountries.com/v3.1/all?fields=name,flags,idd"
-  );
+// const { data: country, error } = useAsyncData("country", async () => {
+//   const response = await $fetch(
+//     "https://restcountries.com/v3.1/all?fields=name,flags,idd"
+//   );
 
-  const refinedData = response.map((item) => {
-    return {
-      name: item.name.common,
-      flag: item.flags.svg,
-      code: item.idd.root + item.idd.suffixes[0],
-    };
-  });
-  const sortedData = refinedData.sort((a, b) => {
-    const nameA = a.name.toUpperCase();
-    const nameB = b.name.toUpperCase();
+//   const refinedData = response.map((item) => {
+//     return {
+//       name: item.name.common,
+//       flag: item.flags.svg,
+//       code: item.idd.root + item.idd.suffixes[0],
+//     };
+//   });
+//   const sortedData = refinedData.sort((a, b) => {
+//     const nameA = a.name.toUpperCase();
+//     const nameB = b.name.toUpperCase();
 
-    if (nameA < nameB) {
-      return -1;
-    }
+//     if (nameA < nameB) {
+//       return -1;
+//     }
 
-    if (nameA > nameB) {
-      return 1;
-    }
+//     if (nameA > nameB) {
+//       return 1;
+//     }
 
-    return 0;
-  });
-  return sortedData;
-});
+//     return 0;
+//   });
+//   return sortedData;
+// });
 
 const searchQuery = ref("");
-const filteredCountry = computed(() => {const query = ref(searchQuery.value.toLowerCase());
+const filteredCountry = computed(() => {
+  const query = ref(searchQuery.value.toLowerCase());
   if (searchQuery.value === "") {
-    return country.value;
+    return countries;
   }
-  return country.value.filter((item) => {
+  return countries.filter((item) => {
     return Object.values(item).some((word) =>
       String(word).toLowerCase().includes(query.value)
     );
   });
 });
 
-
-const countryFullData = computed(() => {
-  // return country.value.find((obj) => obj.name == useVerification.data.country);
-})
-
-const getCountryData = (data, i) => {
-  return data.find((obj) => obj.name == i);
-}
+// Get Full Data of selected Country
+const fullCountryData = computed(() => {
+  return countries.find((obj) => obj.name == useVerification.data.country);
+});
 
 const countyDropdown = ref(null);
 const showDropdown = ref(false);
@@ -74,9 +73,7 @@ const next = () => {
     (useVerification.data.phone != "")
   ) {
     useVerification.nextSection("selfie");
-    console.log('NEXT')
   }
-  console.log('NEXT')
 };
 
 const prev = () => {
@@ -169,12 +166,12 @@ const prev = () => {
                 class="flex items-center h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
               >
                 <img
-                  :src="getCountryData(country, useVerification.data.country).flag"
+                  :src="fullCountryData.flag"
                   alt=""
                   class="mr-[16px] h-[20px] w-[24px]"
                 />
                 <span class="text-[14px] leading-[25px]">{{
-                  getCountryData(country, useVerification.data.country).code
+                  fullCountryData.code
                 }}</span>
                 <input
                   type="number"
