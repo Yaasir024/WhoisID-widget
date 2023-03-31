@@ -48,8 +48,12 @@ const filteredCountry = computed(() => {const query = ref(searchQuery.value.toLo
 
 
 const countryFullData = computed(() => {
-  return country.value.find((obj) => obj.name == useVerification.data.country);
+  // return country.value.find((obj) => obj.name == useVerification.data.country);
 })
+
+const getCountryData = (data, i) => {
+  return data.find((obj) => obj.name == i);
+}
 
 const countyDropdown = ref(null);
 const showDropdown = ref(false);
@@ -70,12 +74,14 @@ const next = () => {
     (useVerification.data.phone != "")
   ) {
     useVerification.nextSection("selfie");
+    console.log('NEXT')
   }
+  console.log('NEXT')
 };
 
 const prev = () => {
   useVerification.nextSection("start");
-  useVerification.data.country = "";
+  useVerification.data.country = "Nigeria";
   useVerification.data.phone = "";
 };
 </script>
@@ -163,12 +169,12 @@ const prev = () => {
                 class="flex items-center h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
               >
                 <img
-                  :src="countryFullData.flag"
+                  :src="getCountryData(country, useVerification.data.country).flag"
                   alt=""
                   class="mr-[16px] h-[20px] w-[24px]"
                 />
                 <span class="text-[14px] leading-[25px]">{{
-                  countryFullData.code
+                  getCountryData(country, useVerification.data.country).code
                 }}</span>
                 <input
                   type="number"
