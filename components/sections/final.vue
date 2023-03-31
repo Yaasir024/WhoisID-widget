@@ -22,7 +22,7 @@ const success = ref(false);
   <section
     class="bg-white py-[22px] min-h-screen flex flex-col justify-between"
   >
-    <div class="">
+    <div class="pb-[100px]">
       <div class="flex items-center px-[18px]">
         <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
         <span class="text-[20px] leading-[36px] font-semibold"

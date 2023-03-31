@@ -36,7 +36,7 @@
 body {
   min-height: 100vh;
   color: #111727;
-  background: #F5F5F5;
+  background: #f5f5f5;
   transition: color 0.5s, background-color 0.5s;
   line-height: 1.6;
   font-family: "Euclid Circular", sans-serif;
@@ -44,4 +44,17 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3); */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #d0d5dd;
+  outline: 1px solid #d0d5dd;
 }
