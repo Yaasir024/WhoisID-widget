@@ -166,7 +166,7 @@ const success = ref(false);
           v-if="success"
         >
           <div
-            class="relative modal h-[390px] max-w-[430px] w-full bg-white mt-auto p-[32px] rounded-t-[32px] ml-[-14px] flex items-center flex-col"
+            class="relative modal h-[390px] max-w-[430px] w-full bg-white p-[32px] rounded-[32px] sm:ml-[-14px] flex items-center flex-col"
           >
             <button class="absolute top-[20px] left-[20px]">
               <img
