@@ -27,6 +27,10 @@ const startCams = () => {
     .getUserMedia(constraints)
     .then(function (stream) {
       video.value.srcObject = stream;
+      // Fix for iOS Safari from https://leemartin.dev/hello-webrtc-on-safari-11-e8bcb5335295
+      video.value.setAttribute("autoplay", "");
+      video.value.setAttribute("muted", "");
+      video.value.setAttribute("playsinline", "");
       video.value.play();
     })
     .catch(function (err) {
