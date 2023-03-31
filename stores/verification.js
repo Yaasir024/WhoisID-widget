@@ -8,7 +8,7 @@ export const useVerificationStore = defineStore("verification", () => {
   };
 
   const data = reactive({
-    country: "",
+    country: "Nigeria",
     phone: "",
     address: {
       still_live_at: "",

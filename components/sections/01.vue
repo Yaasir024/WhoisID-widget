@@ -3,6 +3,45 @@ import { useVerificationStore } from "@/stores/verification";
 
 const useVerification = useVerificationStore();
 
+// FETCH DATA
+
+const { data: country, error } = useAsyncData("country", async () => {
+  const response = await $fetch(
+    "https://restcountries.com/v3.1/all?fields=name,flags,idd"
+  );
+
+  const refinedData = response.map((item) => {
+    return {
+      name: item.name.common,
+      flag: item.flags.svg,
+      code: item.idd.root + item.idd.suffixes[0],
+    };
+  });
+  const sortedData = refinedData.sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+
+    if (nameA < nameB) {
+      return -1;
+    }
+
+    if (nameA > nameB) {
+      return 1;
+    }
+
+    return 0;
+  });
+  return sortedData;
+});
+
+const selectedCountry = computed(() => {
+  // const selected = country.value.find((obj) => obj.name === useVerification.data.country);
+})
+
+const getCountryData = (count) => {
+  return country.value.find((obj) => obj.name === count)
+}
+
 const countyDropdown = ref(null);
 const showDropdown = ref(false);
 
@@ -77,14 +116,16 @@ const prev = () => {
               </div>
               <transition name="menu">
                 <div
-                  class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
+                  class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20 max-h-[250px] overflow-y-scroll"
                   v-if="showDropdown"
                 >
                   <div
                     class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
-                    @click="addCountry('nigeria')"
+                    v-for="(data, index) in country"
+                    :key="index"
+                    @click="addCountry(data.name)"
                   >
-                    Nigeria
+                    {{ data.name }}
                   </div>
                 </div>
               </transition>
@@ -101,8 +142,9 @@ const prev = () => {
               <div
                 class="flex items-center h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
               >
-                <img src="@/assets/icon/flag-ng.svg" alt="" class="mr-[16px]" />
-                <span class="text-[14px] leading-[25px]">+234</span>
+                <!-- <img src="@/assets/icon/flag-ng.svg" alt="" class="mr-[16px]" /> -->
+                <img :src="getCountryData(useVerification.data.country).flag" alt="" class="mr-[16px] h-[20px] w-[24px]" />
+                <span class="text-[14px] leading-[25px]">{{ getCountryData(useVerification.data.country).code }}</span>
                 <input
                   type="number"
                   class="ml-[4px] outline-none w-full"
@@ -121,10 +163,7 @@ const prev = () => {
         <div class="mt-[56px]">
           <ReuseableButton text="Continue" :checked="true" @click="next()" />
           <div class="flex justify-center w-full mt-[10px]">
-            <button
-              class="flex items-center"
-              @click="prev()"
-            >
+            <button class="flex items-center" @click="prev()">
               <img
                 src="@/assets/images/arrow-left.svg"
                 alt=""
