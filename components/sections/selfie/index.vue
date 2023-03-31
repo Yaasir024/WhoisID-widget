@@ -12,7 +12,7 @@ let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const constraints = {
   audio: false,
   video: {
-    facingMode: isMobile ? "environment" : "user",
+    // facingMode: isMobile ? "environment" : "user",
     width: { ideal: 640 },
     height: { ideal: 480 },
   },
