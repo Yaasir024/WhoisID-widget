@@ -5,7 +5,10 @@ const useVerification = useVerificationStore();
 
 const successModal = ref(false);
 
+const capture = ref(false);
+
 const next = () => {
+    capture.value = false
   useVerification.nextSection("building-capture");
   //   if (
   //     (useVerification.data.country != "") &
@@ -21,11 +24,13 @@ const prev = () => {
   // useVerification.data.phone = "";
 };
 
-const capture = ref(false);
+
 
 const snap = () => {
-    next()
-}
+  next();
+};
+
+
 </script>
 
 <template>
@@ -67,7 +72,7 @@ const snap = () => {
         </div>
         <div class="mt-[40px]">
           <ReuseableButton
-            text="Submit for verification"
+            text="Continue"
             :checked="true"
             @click="capture = true"
           />
@@ -95,44 +100,7 @@ const snap = () => {
         v-if="capture"
       ></div>
       <transition name="modal">
-        <div
-          class="fixed bottom-0 left-0 right-0 top-0 flex items-center justify-center z-30"
-          v-if="capture"
-        >
-          <div
-            class="relative modal max-w-[430px] w-full bg-black text-white mt-auto py-[63px] p-[32px] rounded-t-[8px] ml-[-14px] flex items-center flex-col justify-between"
-          >
-            <button
-              class="absolute top-[20px] right-[20px] flex items-center justify-center h-[38px] w-[38px] rounded-full bg-white/30"
-            >
-              <img
-                src="@/assets/icon/close-white.svg"
-                alt=""
-                class=""
-                @click="capture = false"
-              />
-            </button>
-            <h1 class="text-[18px] leading-[32px] font-medium text-center">
-              Take an image of your utility bill
-            </h1>
-            <div class="">
-              <div class="h-[250px] w-[360px] bg-white/30 rounded-lg"></div>
-              <!-- <img
-                  src="@/assets/images/success.png"
-                  alt=""
-                  class="h-[159px] w-[159px]"
-                /> -->
-            </div>
-            <div class="flex flex-col items-center justify-center">
-              <h1
-                class="text-[18px] leading-[32px] font-medium text-center mb-[24px]"
-              >
-                Ensure the image fits in this frame
-              </h1>
-              <img src="@/assets/icon/capture-btn.svg" alt="" class="" @click="snap()"/>
-            </div>
-          </div>
-        </div>
+        <SectionsCaptureUtilitycam v-if="capture" @close="capture = false" @next="next()"/>
       </transition>
     </div>
   </section>

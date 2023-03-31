@@ -40,7 +40,7 @@ const success = ref(false);
         </h1>
         <div class="mt-[24px] pb-[12px] border-b border-[#EAECF0]">
           <div class="">
-            <img src="@/assets/images/house.png" alt="" class="mr-[8px]" />
+            <img :src="useVerification.data.images.building" alt="" class="mr-[8px]" />
           </div>
           <div class="mt-[12px] flex justify-center">
             <button
@@ -56,7 +56,7 @@ const success = ref(false);
         <div class="pt-[45px] pb-[24px] border-b border-[#EAECF0]">
           <div class="flex">
             <img
-              src="@/assets/images/selfie.png"
+              :src="useVerification.data.images.selfie"
               alt=""
               class="h-[78px] w-[78px] mr-[24px]"
             />
@@ -83,37 +83,37 @@ const success = ref(false);
           </div>
         </div>
         <div class="mt-[24px] pb-[24px] border-b border-[#EAECF0]">
-          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]">
+          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]" v-if="useVerification.data.address.landmark != ''">
             <div class="w-[128px] shrink-0">Landmark</div>
-            <div class="w-full">Lagos University Teaching Hospital</div>
+            <div class="w-full">{{ useVerification.data.address.landmark }}</div>
           </div>
-          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]">
+          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]" v-if="useVerification.data.address.full_address != ''">
             <div class="w-[128px] shrink-0">Full address</div>
-            <div class="w-full">Lagos University Teaching Hospital</div>
+            <div class="w-full">{{ useVerification.data.address.full_address }}</div>
           </div>
-          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]">
+          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]" v-if="useVerification.data.address.full_address != ''">
             <div class="w-[128px] shrink-0">Current address</div>
-            <div class="w-full">Lagos University Teaching Hospital</div>
+            <div class="w-full">{{ useVerification.data.address.full_address }}</div>
           </div>
-          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]">
+          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]" v-if="useVerification.data.address.reason != ''">
             <div class="w-[128px] shrink-0">Reason for change</div>
-            <div class="w-full">Lagos</div>
+            <div class="w-full">{{ useVerification.data.address.reason }}</div>
           </div>
-          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]">
+          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]" v-if="useVerification.data.address.state != ''">
             <div class="w-[128px] shrink-0">State</div>
-            <div class="w-full">Lagos</div>
+            <div class="w-full">{{ useVerification.data.address.state }}</div>
           </div>
 
-          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]">
+          <div class="flex text-[16px] leading-[29px] text-id-gray-1 mb-[12px]" v-if="useVerification.data.address.alias != ''">
             <div class="w-[128px] shrink-0">Alias</div>
-            <div class="w-full">Lagos University Teaching Hospital</div>
+            <div class="w-full">{{ useVerification.data.address.alias }}</div>
           </div>
         </div>
         <div class="mt-[24px]">
           <h1 class="text-[16px] leading-[29px] tfont-semibold mb-[8px]">
             Utility bill
           </h1>
-          <img src="@/assets/images/utility.png" alt="" class="mr-[8px]" />
+          <img :src="useVerification.data.images.utility" alt="" class="mr-[8px]" />
           <div class="mt-[12px] flex justify-center">
             <button
               class="flex items-center py-[8px] px-[16px] bg-[#F2F5FE] rounded-[32px] border border-id-green-2"

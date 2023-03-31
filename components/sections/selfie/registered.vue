@@ -13,8 +13,9 @@ const useSelfie = () => {
   // }
 };
 
-const prev = () => {
+const retake = () => {
   useVerification.nextSection("selfie");
+  useVerification.data.images.selfie = ''
   // useVerification.data.country = "";
   // useVerification.data.phone = "";
 };
@@ -45,7 +46,7 @@ const prev = () => {
         </h1>
         <div class="mt-[24px]">
           <div class="flex justify-center">
-            <img src="@/assets/images/selfie.png" alt="" class="h-[280px]" />
+            <img :src="useVerification.data.images.selfie" alt="" class="h-[280px] w-[280px] rounded-full" />
           </div>
           <div class="mt-[32px] flex justify-center">
             <button
@@ -61,7 +62,7 @@ const prev = () => {
         <div class="mt-[40px] flex items-center justify-between">
           <button
             class="text-id-green-2 text-[18px] leading-[32px] font-semibold py-[10px] px-[36px] rounded-[48px] border border-id-green-2"
-            @click="prev()"
+            @click="retake()"
           >
             Retake selfie
           </button>

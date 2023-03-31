@@ -20,6 +20,11 @@ export const useVerificationStore = defineStore("verification", () => {
       length_of_living: "",
       alias: "",
     },
+    images: {
+      utility: "",
+      building: "",
+      selfie: "",
+    },
   });
 
   const states = {

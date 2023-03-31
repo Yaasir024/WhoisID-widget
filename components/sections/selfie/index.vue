@@ -3,8 +3,50 @@ import { useVerificationStore } from "@/stores/verification";
 
 const useVerification = useVerificationStore();
 
-const next = () => {
+const video = ref(null);
+const canvas = ref(null);
+
+const imgSrc = ref("");
+
+let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const constraints = {
+  audio: false,
+  video: {
+    facingMode: isMobile ? "environment" : "user",
+    width: { ideal: 640 },
+    height: { ideal: 480 },
+  },
+};
+
+const startCams = () => {
+  navigator.mediaDevices
+    .getUserMedia(constraints)
+    .then(function (stream) {
+      video.value.srcObject = stream;
+      video.value.play();
+    })
+    .catch(function (err) {
+      console.log("Error getting camera stream: ", err);
+    });
+};
+onMounted(() => {
+  startCams();
+});
+
+const snap = () => {
+  canvas.value
+    .getContext("2d")
+    .drawImage(video.value, 0, 0, canvas.value.width, canvas.value.height);
+
+  let image_data_url = canvas.value.toDataURL("image/jpeg");
+  useVerification.data.images.selfie = image_data_url;
+
+  let tracks = video.value.srcObject.getTracks();
+  tracks.forEach((track) => track.stop());
   useVerification.nextSection("selfie-registered");
+};
+
+const next = () => {
   // if (
   //   (useVerification.data.country != "") &
   //   (useVerification.data.phone != "")
@@ -44,7 +86,11 @@ const prev = () => {
           Take a selfie
         </h1>
         <div class="mt-[24px]">
-          <div class="h-[280px] w-[280px] rounded-full mx-auto bg-black"></div>
+          <div class="h-[280px] w-[280px] mx-auto">
+            <video class="video h-[280px] w-[280px] " ref="video"></video>
+            <canvas class="canvas hidden" ref="canvas"></canvas>
+          </div>
+          <!-- <div class="h-[280px] w-[280px] rounded-full mx-auto bg-black"></div> -->
           <div class="mt-[32px] flex justify-center">
             <button
               class="flex items-center py-[8px] px-[16px] bg-[#F2F5FE] rounded-[32px]"
@@ -57,7 +103,7 @@ const prev = () => {
           </div>
         </div>
         <div class="mt-[40px]">
-          <ReuseableButton text="Continue" :checked="true" @click="next()" />
+          <ReuseableButton text="Continue" :checked="true" @click="snap()" />
           <div class="flex justify-center w-full mt-[10px]">
             <button class="flex items-center" @click="prev()">
               <img
