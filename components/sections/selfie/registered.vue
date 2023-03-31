@@ -35,7 +35,7 @@ const retake = () => {
       <div class="mt-[25px] px-[17px]">
         <div class="w-full h-[4px] bg-[#EAECF0]">
           <div class="flex items-center z-10 w-full h-full">
-            <div class="h-full bg-id-green-2 w-[22%]"></div>
+            <div class="h-full bg-id-green-2 w-[37.5%]"></div>
             <div class="h-[10px] w-[10px] rounded-full bg-id-green-2"></div>
           </div>
         </div>
@@ -59,9 +59,9 @@ const retake = () => {
             </button>
           </div>
         </div>
-        <div class="mt-[40px] flex items-center justify-between">
+        <div class="mt-[40px] flex items-center justify-between flex-col sm:flex-row">
           <button
-            class="text-id-green-2 text-[18px] leading-[32px] font-semibold py-[10px] px-[36px] rounded-[48px] border border-id-green-2"
+            class="text-id-green-2 text-[18px] leading-[32px] font-semibold py-[10px] px-[36px] rounded-[48px] border border-id-green-2 mb-4 sm:mb-0"
             @click="retake()"
           >
             Retake selfie

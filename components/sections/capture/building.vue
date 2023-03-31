@@ -42,7 +42,7 @@ const snap = () => {
       <div class="mt-[25px] px-[17px]">
         <div class="w-full h-[4px] bg-[#EAECF0]">
           <div class="flex items-center z-10 w-full h-full">
-            <div class="h-full bg-id-green-2 w-full"></div>
+            <div class="h-full bg-id-green-2 w-[85%]"></div>
             <div class="h-[10px] w-[10px] rounded-full bg-id-green-2"></div>
           </div>
         </div>
@@ -96,7 +96,7 @@ const snap = () => {
         v-if="capture"
       ></div>
       <transition name="modal">
-        <SectionsCaptureUtilitycam v-if="capture" @close="capture = false" @next="next()"/>
+        <SectionsCaptureBuildingcam v-if="capture" @close="capture = false" @next="next()"/>
       </transition>
     </div>
   </section>

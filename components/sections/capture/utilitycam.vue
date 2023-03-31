@@ -65,7 +65,7 @@ const useImg = () => {
     class="fixed bottom-0 left-0 right-0 top-0 flex items-center justify-center z-30"
   >
     <div
-      class="relative modal max-w-[430px] w-full bg-black text-white mt-auto py-[63px] p-[32px] rounded-t-[8px] ml-[-14px] flex items-center flex-col justify-between"
+      class="relative modal max-w-[430px] w-full bg-black text-white mt-auto py-[63px] p-[32px] rounded-t-[8px] sm:ml-[-14px] flex items-center flex-col justify-between"
     >
       <button
         class="absolute top-[20px] right-[20px] flex items-center justify-center h-[38px] w-[38px] rounded-full bg-white/30"
@@ -81,7 +81,7 @@ const useImg = () => {
         Take an image of your utility bill
       </h1>
       <div class="">
-        <div class="camera h-[250px] w-[360px] rounded-lg">
+        <div class="camera sm:h-[250px] sm:w-[360px] rounded-lg">
           <img :src="imgSrc" alt="" class="w-full h-full" v-if="imgSrc" />
           <video class="video" ref="video" v-else></video>
           <canvas class="canvas hidden" ref="canvas"></canvas>

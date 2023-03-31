@@ -7,10 +7,13 @@ const useVerification = useVerificationStore();
 const verify = () => {};
 
 const prev = () => {
-  useVerification.nextSection("1");
+  useVerification.nextSection("building-capture");
   // useVerification.data.country = "";
   // useVerification.data.phone = "";
 };
+const recapture = (i) => {
+  useVerification.nextSection(i);
+}
 
 const success = ref(false);
 </script>
@@ -42,9 +45,11 @@ const success = ref(false);
           <div class="">
             <img :src="useVerification.data.images.building" alt="" class="mr-[8px]" />
           </div>
+          
           <div class="mt-[12px] flex justify-center">
             <button
               class="flex items-center py-[8px] px-[16px] bg-[#F2F5FE] rounded-[32px] border border-id-green-2"
+              @click="recapture('building-capture')"
             >
               <img src="@/assets/images/frame-2.svg" alt="" class="mr-[8px]" />
               <span class="text-[14px] leading-[25px] text-[#188084]"
@@ -117,6 +122,7 @@ const success = ref(false);
           <div class="mt-[12px] flex justify-center">
             <button
               class="flex items-center py-[8px] px-[16px] bg-[#F2F5FE] rounded-[32px] border border-id-green-2"
+              @click="recapture('utility-capture')"
             >
               <img src="@/assets/images/frame-2.svg" alt="" class="mr-[8px]" />
               <span class="text-[14px] leading-[25px] text-[#188084]"
