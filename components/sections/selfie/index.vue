@@ -57,8 +57,8 @@ const next = () => {
 
 const prev = () => {
   useVerification.nextSection("1");
-  // useVerification.data.country = "";
-  // useVerification.data.phone = "";
+  let tracks = video.value.srcObject.getTracks();
+  tracks.forEach((track) => track.stop());
 };
 </script>
 
@@ -66,7 +66,7 @@ const prev = () => {
   <section
     class="bg-white py-[22px] min-h-screen flex flex-col justify-between"
   >
-    <div class="">
+    <div class="pb-[120px]">
       <div class="flex items-center px-[18px]">
         <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
         <span class="text-[20px] leading-[36px] font-semibold"
