@@ -33,6 +33,10 @@ const startCams = () => {
       console.log("Error getting camera stream: ", err);
     });
 };
+const stopCams = () => {
+  let tracks = video.value.srcObject.getTracks();
+  tracks.forEach((track) => track.stop());
+};
 onMounted(() => {
   startCams();
 });
@@ -56,7 +60,12 @@ const retake = () => {
 
 const useImg = () => {
   useVerification.data.images.building = imgSrc.value;
-  emits('next')
+  emits("next");
+};
+
+const closeModal = () => {
+  emits("close");
+  stopCams();
 };
 </script>
 
@@ -74,7 +83,7 @@ const useImg = () => {
           src="@/assets/icon/close-white.svg"
           alt=""
           class=""
-          @click="$emit('close')"
+          @click="closeModal()"
         />
       </button>
       <h1 class="text-[18px] leading-[32px] font-medium text-center">
