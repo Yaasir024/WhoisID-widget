@@ -23,6 +23,10 @@ const startCams = () => {
     .getUserMedia(constraints)
     .then(function (stream) {
       video.value.srcObject = stream;
+      // Fix for iOS Safari from https://leemartin.dev/hello-webrtc-on-safari-11-e8bcb5335295
+      video.value.setAttribute("autoplay", "");
+      video.value.setAttribute("muted", "");
+      video.value.setAttribute("playsinline", "");
       video.value.play();
     })
     .catch(function (err) {
@@ -87,7 +91,7 @@ const prev = () => {
         </h1>
         <div class="mt-[24px]">
           <div class="h-[280px] w-[280px] mx-auto">
-            <video class="video h-[280px] w-[280px] " ref="video"></video>
+            <video class="video h-[280px] w-[280px]" ref="video"></video>
             <canvas class="canvas hidden" ref="canvas"></canvas>
           </div>
           <!-- <div class="h-[280px] w-[280px] rounded-full mx-auto bg-black"></div> -->
