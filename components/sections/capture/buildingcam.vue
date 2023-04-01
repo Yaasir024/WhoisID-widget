@@ -94,13 +94,13 @@ const closeModal = () => {
         Take an image of your building
       </h1>
       <div class="">
-        <div class="camera sm:h-[250px] sm:w-[360px] rounded-lg">
+        <div class="camera sm:h-[250px] sm:w-[360px] rounded-lg overflow-hidden">
           <img :src="imgSrc" alt="" class="w-full h-full" v-if="imgSrc" />
           <video class="video" ref="video" v-else></video>
           <canvas class="canvas hidden" ref="canvas"></canvas>
         </div>
       </div>
-      <div class="flex flex-col items-center justify-center w-full">
+      <div class="flex flex-col items-center justify-center w-full mb-[150px] sm:mb-0">
         <h1
           class="text-[18px] leading-[32px] font-medium text-center mb-[24px]"
         >
@@ -109,7 +109,7 @@ const closeModal = () => {
         <img
           src="@/assets/icon/capture-btn.svg"
           alt=""
-          class=""
+          class="cursor-pointer"
           @click="snap()"
           v-if="imgSrc == ''"
         />
