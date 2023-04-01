@@ -70,7 +70,7 @@ const prev = () => {
   <section
     class="bg-white py-[22px] min-h-screen flex flex-col justify-between"
   >
-    <div class="pb-[120px]">
+    <div class="mb-[120px]">
       <div class="flex items-center px-[18px]">
         <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
         <span class="text-[20px] leading-[36px] font-semibold"
@@ -90,8 +90,8 @@ const prev = () => {
           Take a selfie
         </h1>
         <div class="mt-[24px]">
-          <div class="h-[280px] w-[280px] mx-auto">
-            <video class="video h-[280px] w-[280px]" ref="video"></video>
+          <div class="h-[280px] sm:w-[350px] mx-auto">
+            <video class="video h-[280px] sm:w-[350px]" ref="video"></video>
             <canvas class="canvas hidden" ref="canvas"></canvas>
           </div>
           <!-- <div class="h-[280px] w-[280px] rounded-full mx-auto bg-black"></div> -->
