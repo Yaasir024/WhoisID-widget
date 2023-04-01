@@ -8,7 +8,7 @@ const successModal = ref(false);
 const capture = ref(false);
 
 const next = () => {
-    capture.value = false
+  capture.value = false;
   useVerification.nextSection("building-capture");
   //   if (
   //     (useVerification.data.country != "") &
@@ -24,13 +24,9 @@ const prev = () => {
   // useVerification.data.phone = "";
 };
 
-
-
 const snap = () => {
   next();
 };
-
-
 </script>
 
 <template>
@@ -92,7 +88,6 @@ const snap = () => {
         </div>
       </div>
     </div>
-    <SectionsFooter />
 
     <div class="">
       <div
@@ -100,9 +95,14 @@ const snap = () => {
         v-if="capture"
       ></div>
       <transition name="modal">
-        <SectionsCaptureUtilitycam v-if="capture" @close="capture = false" @next="next()"/>
+        <SectionsCaptureUtilitycam
+          v-if="capture"
+          @close="capture = false"
+          @next="next()"
+        />
       </transition>
     </div>
+    <SectionsFooter />
   </section>
 </template>
 

@@ -5,7 +5,7 @@ const useVerification = useVerificationStore();
 
 const successModal = ref(false);
 const next = () => {
-    capture.value = false
+  capture.value = false;
   useVerification.nextSection("final");
   //   if (
   //     (useVerification.data.country != "") &
@@ -24,8 +24,8 @@ const prev = () => {
 const capture = ref(false);
 
 const snap = () => {
-    next()
-}
+  next();
+};
 </script>
 
 <template>
@@ -49,19 +49,18 @@ const snap = () => {
       </div>
       <div class="mt-[35px] px-[25px]">
         <h1 class="text-[16px] leading-[29px] text-id-dark-3 font-semibold">
-            Take a front image of your bulding
+          Take a front image of your bulding
         </h1>
         <div class="mt-[24px] pb-[12px]">
           <div class="">
             <img src="@/assets/images/house.png" alt="" class="" />
           </div>
           <div class="mt-[18px] flex justify-center">
-            <button
-              class="flex items-center "
-            >
+            <button class="flex items-center">
               <img src="@/assets/icon/light-bulb.svg" alt="" class="mr-[8px]" />
-              <span class="text-[14px] leading-[25px] font-medium text-[#263238]"
-                >A sample image of  a building</span
+              <span
+                class="text-[14px] leading-[25px] font-medium text-[#263238]"
+                >A sample image of a building</span
               >
             </button>
           </div>
@@ -88,7 +87,6 @@ const snap = () => {
         </div>
       </div>
     </div>
-    <SectionsFooter />
 
     <div class="">
       <div
@@ -96,15 +94,20 @@ const snap = () => {
         v-if="capture"
       ></div>
       <transition name="modal">
-        <SectionsCaptureBuildingcam v-if="capture" @close="capture = false" @next="next()"/>
+        <SectionsCaptureBuildingcam
+          v-if="capture"
+          @close="capture = false"
+          @next="next()"
+        />
       </transition>
     </div>
+    <SectionsFooter />
   </section>
 </template>
 
 <style scoped>
 .modal {
-    height: calc(100vh - 48px);
+  height: calc(100vh - 48px);
 }
 .overlay {
   background: rgba(52, 64, 84, 0.5);
