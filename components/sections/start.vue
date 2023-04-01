@@ -15,14 +15,14 @@ const startVerification = () => {
 </script>
 
 <template>
-  <section class="bg-white py-[22px]">
+  <section class="bg-white py-[22px] h-full">
     <div class="flex items-center px-[18px]">
       <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
       <span class="text-[14px] leading-[25px] text-id-green-2 font-medium"
         >WhoisID.Africa</span
       >
     </div>
-    <div class="px-[33px] mb-[55px]">
+    <div class="px-[33px] mb-[100px]">
       <div class="mt-[46px]">
         <img
           src="@/assets/images/start.png"
