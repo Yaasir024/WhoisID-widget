@@ -94,7 +94,7 @@ const closeModal = () => {
         Take an image of your building
       </h1>
       <div class="">
-        <div class="camera sm:h-[250px] sm:w-[360px] rounded-lg overflow-hidden">
+        <div class="camera h-[250px] sm:w-[360px] rounded-lg overflow-hidden">
           <img :src="imgSrc" alt="" class="w-full h-full" v-if="imgSrc" />
           <video class="video" ref="video" v-else></video>
           <canvas class="canvas hidden" ref="canvas"></canvas>
