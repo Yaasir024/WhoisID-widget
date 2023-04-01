@@ -90,9 +90,9 @@ const prev = () => {
           Take a selfie
         </h1>
         <div class="mt-[24px]">
-          <div class="h-[280px] w-full sm:w-[350px] mx-auto">
+          <div class="h-[280px] w-[350px] mx-auto">
             <video
-              class="video h-[280px] w-full sm:w-[350px]"
+              class="video h-[280px] w-[350px]"
               ref="video"
             ></video>
             <canvas class="canvas hidden" ref="canvas"></canvas>
