@@ -91,10 +91,12 @@ const prev = () => {
         </h1>
         <div class="mt-[24px]">
           <div class="h-[280px] w-full sm:w-[350px] mx-auto">
-            <video class="video h-[280px] w-full sm:w-[350px]" ref="video"></video>
+            <video
+              class="video h-[280px] w-full sm:w-[350px]"
+              ref="video"
+            ></video>
             <canvas class="canvas hidden" ref="canvas"></canvas>
           </div>
-          <!-- <div class="h-[280px] w-[280px] rounded-full mx-auto bg-black"></div> -->
           <div class="mt-[32px] flex justify-center">
             <button
               class="flex items-center py-[8px] px-[16px] bg-[#F2F5FE] rounded-[32px]"
