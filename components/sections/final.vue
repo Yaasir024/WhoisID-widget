@@ -43,7 +43,7 @@ const success = ref(false);
         </h1>
         <div class="mt-[24px] pb-[12px] border-b border-[#EAECF0]">
           <div class="">
-            <img :src="useVerification.data.images.building" alt="" class="w-full" />
+            <img :src="useVerification.data.images.building" alt="" class="w-full h-[260px]" />
           </div>
           
           <div class="mt-[12px] flex justify-center">
@@ -126,7 +126,7 @@ const success = ref(false);
           <h1 class="text-[16px] leading-[29px] font-semibold mb-[8px]">
             Utility bill
           </h1>
-          <img :src="useVerification.data.images.utility" alt="" class="w-full" />
+          <img :src="useVerification.data.images.utility" alt="" class="w-full h-[260px]" />
           <div class="mt-[12px] flex justify-center">
             <button
               class="flex items-center py-[8px] px-[16px] bg-[#F2F5FE] rounded-[32px] border border-id-green-2"

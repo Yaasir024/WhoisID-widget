@@ -555,8 +555,7 @@ const prev = () => {
   object-fit: cover; /* optional: scales the video to fill the container */
 }
 .circle-svg path {
-  /* stroke-dasharray: 95;
-  stroke-dashoffset: 105; */
+  /* animation: spin 2s ease-in-out; */
   transition: all 0.3s ease;
 }
 .center {
@@ -565,16 +564,13 @@ const prev = () => {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+/* @keyframes spin {
+  0% {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+} */
 
-/* Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-/* Firefox */
-input[type="number"] {
-  -moz-appearance: textfield;
-}
 </style>

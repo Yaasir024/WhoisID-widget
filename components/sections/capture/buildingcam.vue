@@ -17,8 +17,8 @@ const constraints = {
   audio: false,
   video: {
     facingMode: isMobile ? "environment" : "user",
-    width: { ideal: 640 },
-    height: { ideal: 480 },
+    width: { ideal: 580 },
+    height: { ideal: 500 },
   },
 };
 
@@ -94,8 +94,8 @@ const closeModal = () => {
         Take an image of your building
       </h1>
       <div class="">
-        <div class="camera h-[250px] sm:w-[360px] rounded-lg overflow-hidden">
-          <img :src="imgSrc" alt="" class="h-[250px] w-full sm:w-[360px] " v-if="imgSrc" />
+        <div class="camera h-[300px] w-[360px] rounded-lg overflow-hidden">
+          <img :src="imgSrc" alt="" class=" h-[300px] w-[360px]" v-if="imgSrc" />
           <video class="video" ref="video" v-else></video>
           <canvas class="canvas hidden" ref="canvas"></canvas>
         </div>
