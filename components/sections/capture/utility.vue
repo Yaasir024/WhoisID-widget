@@ -20,7 +20,7 @@ const constraints = {
   video: {
     facingMode: isMobile ? "environment" : "user",
     width: { ideal: 640 },
-    height: { ideal: 480 },
+    height: { ideal: 500 },
   },
 };
 
@@ -94,7 +94,7 @@ const rotateFeed = () => {
           >WhoisID.Africa</span
         >
       </div>
-    <div class="h-full bg-black text-white py-[22px] flex flex-col justify-between items-center mb-[24px] rounded-lg">
+    <div class="h-full w-full bg-black text-white p-[32px] flex flex-col justify-between items-center mb-[24px] rounded-lg">
       <button
         class="absolute top-[20px] right-[20px] flex items-center justify-center h-[38px] w-[38px] rounded-full bg-white/30"
         v-if="false"
@@ -110,11 +110,11 @@ const rotateFeed = () => {
         Take an image of your utility bill
       </h1>
       <div class="">
-        <div class="camera h-[250px] sm:w-[360px] rounded-lg overflow-hidden">
+        <div class="camera h-[300px] w-[360px] rounded-lg overflow-hidden">
           <img
             :src="imgSrc"
             alt=""
-            class="h-[250px] w-full sm:w-[360px]"
+            class="h-[300px] w-[360px]"
             v-if="imgSrc"
           />
           <video class="video" ref="video" v-else></video>
@@ -122,7 +122,7 @@ const rotateFeed = () => {
         </div>
       </div>
       <div
-        class="flex flex-col items-center justify-center w-full mb-[140px] sm:mb-0"
+        class="flex flex-col items-center justify-center w-full sm:mb-0"
       >
         <h1
           class="text-[18px] leading-[32px] font-medium text-center mb-[24px]"
