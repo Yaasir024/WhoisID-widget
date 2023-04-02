@@ -150,7 +150,7 @@ const prev = () => {
                 :class="
                   showDropdown
                     ? 'country-select-hover'
-                    : 'country-select'
+                    : 'country-select font-medium'
                 "
                 @click="showDropdown = !showDropdown"
               >
