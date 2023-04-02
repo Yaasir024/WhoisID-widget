@@ -67,6 +67,39 @@ const addCountry = (i) => {
   searchQuery.value = "";
 };
 
+// PHONE
+const phoneSearchQuery = ref("");
+const filteredPhoneCountry = computed(() => {
+  const query = ref(phoneSearchQuery.value.toLowerCase());
+  if (phoneSearchQuery.value === "") {
+    return countries;
+  }
+  return countries.filter((item) => {
+    return Object.values(item).some((word) =>
+      String(word).toLowerCase().includes(query.value)
+    );
+  });
+});
+
+const phoneDropdown = ref(null);
+const showPhoneDropdown = ref(false);
+
+useClickOutside(phoneDropdown, () => {
+  showPhoneDropdown.value = false;
+});
+
+const addPhone = (i) => {
+  useVerification.data.phone_Country = i.name;
+  useVerification.data.phone_Code = i.code;
+  showPhoneDropdown.value = false;
+  phoneSearchQuery.value = "";
+};
+const fullPhoneData = computed(() => {
+  return countries.find(
+    (obj) => obj.name == useVerification.data.phone_Country
+  );
+});
+
 const next = () => {
   useVerification.nextSection("selfie");
   if (
@@ -84,9 +117,7 @@ const prev = () => {
 </script>
 
 <template>
-  <section
-    class="bg-white py-[22px] min flex flex-col justify-between"
-  >
+  <section class="bg-white py-[22px] min flex flex-col justify-between">
     <div class="">
       <div class="flex items-center px-[18px]">
         <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
@@ -113,19 +144,30 @@ const prev = () => {
               >Country</span
             >
             <div class="relative" ref="countyDropdown">
+              <!-- [#D0D5DD] -->
               <div
-                class="flex items-center justify-between h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
+                class="country-select flex items-center justify-between h-[48px] w-full pl-[14px] border border-[#D0D5DD] rounded-lg overflow-hidden"
+                :class="
+                  showDropdown
+                    ? 'country-select-hover text-black'
+                    : 'country-select text-id-gray-2'
+                "
                 @click="showDropdown = !showDropdown"
               >
+
                 <span
-                  class="text-[14px] leading-[25px] text-[#D0D5DD] capitalize"
+                  class="text-[14px] leading-[25px] capitalize"
                   v-if="useVerification.data.country"
                   >{{ useVerification.data.country }}</span
                 >
-                <span class="text-[14px] leading-[25px] text-[#D0D5DD]" v-else
+                <span class="text-[14px] leading-[25px]" v-else
                   >Select country</span
                 >
-                <img src="@/assets/icon/dropdown.svg" alt="" class="" />
+                <button
+                  class="drop-arrow w-[25px] h-full flex items-center justify-center"
+                >
+                  <img src="@/assets/icon/dropdown.svg" alt="" class="" />
+                </button>
               </div>
               <transition name="menu">
                 <div
@@ -142,7 +184,7 @@ const prev = () => {
                   </div>
                   <div class="max-h-[250px] overflow-y-scroll">
                     <div
-                      class="py-[10px] px-[16px] hover:bg-[#D0D5DD] transition-all duration-200 ease-in-out"
+                      class="py-[10px] px-[16px] hover:bg-id-green-2 transition-all duration-200 ease-in-out"
                       v-for="(data, index) in filteredCountry"
                       :key="index"
                       @click="addCountry(data.name)"
@@ -163,21 +205,66 @@ const prev = () => {
             >
             <div class="">
               <div
-                class="flex items-center h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg text-[#00101B]"
+                class="relative flex items-center h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg text-[#00101B]"
+                ref="phoneDropdown"
               >
-                <img
-                  :src="fullCountryData.flag"
-                  alt=""
-                  class="mr-[16px] h-[20px] w-[24px]"
-                />
+                <div
+                  class="flex items-center mr-[16px] cursor-pointer"
+                  @click="showPhoneDropdown = !showPhoneDropdown"
+                >
+                  <img
+                    :src="fullPhoneData.flag"
+                    alt=""
+                    class="h-[20px] w-[24px]"
+                  />
+                  <div class="iti__arrow"></div>
+                </div>
                 <span class="text-[14px] leading-[25px]">{{
-                  fullCountryData.code
+                  fullPhoneData.code
                 }}</span>
                 <input
                   type="number"
                   class="ml-[4px] outline-none w-full"
+                  max="15"
                   v-model="useVerification.data.phone"
                 />
+                <transition name="menu">
+                  <div
+                    class="absolute top-[50px] left-[0px] bg-white shadow-xl w-full rounded-lg overflow-hidden z-20"
+                    v-if="showPhoneDropdown"
+                  >
+                    <div class="px-[16px] pt-[10px] pb-[5px] border-b">
+                      <input
+                        type="text"
+                        v-model="phoneSearchQuery"
+                        placeholder="Search for country"
+                        class="h-[34px] w-full px-1 border-2 rounded-md outline-none"
+                      />
+                    </div>
+                    <div class="max-h-[250px] overflow-y-scroll">
+                      <div
+                        class="py-[10px] px-[16px] flex items-center hover:bg-id-green-2 transition-all duration-200 ease-in-out cursor-pointer"
+                        v-for="(data, index) in filteredPhoneCountry"
+                        :key="index"
+                        @click="addPhone(data)"
+                      >
+                        <img
+                          :src="data.flag"
+                          alt=""
+                          class="h-[20px] w-[24px] mr-[4px]"
+                        />
+                        <span class="mr-[8px]">
+
+                          {{ data.name }}
+                        </span>
+                        <span class="text-id-gray-2">
+
+                          {{ data.code }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </transition>
               </div>
             </div>
           </div>
@@ -214,6 +301,32 @@ const prev = () => {
 .min {
   min-height: calc(100vh - env(safe-area-inset-top));
 }
+.country-select {
+  background-color: #f7f7f7;
+  background-image: linear-gradient(to bottom, #fff 50%, #eee 100%);
+  background-repeat: repeat-x;
+}
+.country-select-hover {
+  background-image: linear-gradient(to bottom, #eee 50%, #fff 100%);
+  background-repeat: repeat-x;
+}
+.country-select .drop-arrow {
+  background-color: #ddd;
+  border: none;
+  border-left: 1px solid #aaa;
+  background-image: -webkit-linear-gradient(top, #eee 50%, #ccc 100%);
+  background-repeat: repeat-x;
+}
+
+.iti__arrow {
+  margin-left: 6px;
+  width: 0;
+  height: 0;
+  border-left: 3px solid transparent;
+  border-right: 3px solid transparent;
+  border-top: 4px solid #555;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

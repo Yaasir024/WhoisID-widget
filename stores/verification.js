@@ -14,12 +14,14 @@ export const useVerificationStore = defineStore("verification", () => {
   };
   const nextSection = (section) => {
     currentSection.value = section;
-    scrollToTop()
+    scrollToTop();
   };
 
   const data = reactive({
     country: "Nigeria",
     phone: "",
+    phone_Country: "Nigeria",
+    Code: "",
     address: {
       still_live_at: "",
       reason: "relocation",
