@@ -38,7 +38,7 @@ const retake = () => {
         </h1>
         <div class="mt-[24px]">
           <div class="flex justify-center">
-            <img :src="useVerification.data.images.selfie" alt="" class="h-[280px] w-[280px] rounded-full" />
+            <img :src="useVerification.data.images.selfie" alt="" class="h-[230px] w-[230px] rounded-full" />
           </div>
           <div class="mt-[32px] flex justify-center">
             <button

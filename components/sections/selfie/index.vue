@@ -388,8 +388,8 @@ const constraints = {
   audio: false,
   video: {
     facingMode: "user",
-    // width: { ideal: 640 },
-    // height: { ideal: 480 },
+    width: { ideal: 230 },
+    height: { ideal: 230 },
   },
 };
 
@@ -445,7 +445,7 @@ const snap = () => {
       .getContext("2d")
       .drawImage(video.value, 0, 0, canvas.value.width, canvas.value.height);
 
-    let image_data_url = canvas.value.toDataURL("image/jpeg");
+    let image_data_url = canvas.value.toDataURL("image/jpeg", 1.0);
     useVerification.data.images.selfie = image_data_url;
 
     let tracks = video.value.srcObject.getTracks();
