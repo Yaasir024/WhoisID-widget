@@ -7,33 +7,37 @@ const emits = defineEmits(["close", "next"]);
 
 const snapped = ref(false);
 
-const video = ref(null);
-const canvas = ref(null);
+const videoUtility = ref(null);
+const canvasUtility = ref(null);
 
 const imgSrc = ref("");
 
 const feedOrientation = ref("potrait");
+let isMobile;
+let constraints;
 
-let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-const constraints = {
-  audio: false,
-  video: {
-    facingMode: isMobile ? "environment" : "user",
-    // width: { ideal: 580 },
-    // height: { ideal: 500 },
-  },
-};
+onMounted(() => {
+  isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  constraints = {
+    audio: false,
+    video: {
+      facingMode: isMobile ? "environment" : "user",
+      // width: { ideal: 580 },
+      // height: { ideal: 500 },
+    },
+  };
+});
 
 const startCams = () => {
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then(function (stream) {
       // Fix for iOS Safari from https://leemartin.dev/hello-webrtc-on-safari-11-e8bcb5335295
-      video.value.setAttribute("autoplay", "");
-      video.value.setAttribute("muted", "");
-      video.value.setAttribute("playsinline", "");
-      video.value.srcObject = stream;
-      video.value.play();
+      videoUtility.value.setAttribute("autoplay", "");
+      videoUtility.value.setAttribute("muted", "");
+      videoUtility.value.setAttribute("playsinline", "");
+      videoUtility.value.srcObject = stream;
+      videoUtility.value.play();
     })
     .catch(function (err) {
       console.log("Error getting camera stream: ", err);
@@ -41,7 +45,7 @@ const startCams = () => {
 };
 
 const stopCams = () => {
-  let tracks = video.value.srcObject.getTracks();
+  let tracks = videoUtility.value.srcObject.getTracks();
   tracks.forEach((track) => track.stop());
 };
 onMounted(() => {
@@ -49,14 +53,14 @@ onMounted(() => {
 });
 
 const snap = () => {
-  canvas.value
+  canvasUtility.value
     .getContext("2d")
-    .drawImage(video.value, 0, 0, canvas.value.width, canvas.value.height);
+    .drawImage(videoUtility.value, 0, 0, canvasUtility.value.width, canvasUtility.value.height);
 
-  let image_data_url = canvas.value.toDataURL("image/jpeg");
+  let image_data_url = canvasUtility.value.toDataURL("image/jpeg");
   imgSrc.value = image_data_url;
 
-  let tracks = video.value.srcObject.getTracks();
+  let tracks = videoUtility.value.srcObject.getTracks();
   tracks.forEach((track) => track.stop());
 };
 
@@ -82,19 +86,20 @@ const rotateFeed = () => {
   } else if (feedOrientation.value == "landscape") {
     feedOrientation.value = "potrait";
   }
-
 };
 </script>
 
 <template>
   <div class="bg-white h-screen flex flex-col overflow-hidden">
     <div class="flex items-center px-[18px] py-[20px]">
-        <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
-        <span class="text-[20px] leading-[36px] font-semibold"
-          >WhoisID.Africa</span
-        >
-      </div>
-    <div class="h-full w-full bg-black text-white p-[32px] flex flex-col justify-between items-center mb-[24px] rounded-lg">
+      <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
+      <span class="text-[20px] leading-[36px] font-semibold"
+        >WhoisID.Africa</span
+      >
+    </div>
+    <div
+      class="h-full w-full bg-black text-white p-[32px] flex flex-col justify-between items-center mb-[24px] rounded-lg"
+    >
       <button
         class="absolute top-[20px] right-[20px] flex items-center justify-center h-[38px] w-[38px] rounded-full bg-white/30"
         v-if="false"
@@ -111,19 +116,18 @@ const rotateFeed = () => {
       </h1>
       <div class="">
         <div class="camera h-[300px] w-[360px] rounded-lg overflow-hidden">
-          <img
-            :src="imgSrc"
-            alt=""
-            class="h-[300px] w-[360px]"
-            v-if="imgSrc"
-          />
-          <video class="video" ref="video" autoplay muted playsinline :class="feedOrientation == 'potrait' ? 'rotate-0' : 'rotate-90'" v-else></video>
-          <canvas class="canvas hidden" ref="canvas"></canvas>
+          <img :src="imgSrc" alt="" class="h-[300px] w-[360px]" v-if="imgSrc" />
+          <video
+            class="video"
+            ref="videoUtility"
+            autoplay
+            :class="feedOrientation == 'potrait' ? 'rotate-0' : 'rotate-90'"
+            v-else
+          ></video>
+          <canvas class="canvas hidden" ref="canvasUtility"></canvas>
         </div>
       </div>
-      <div
-        class="flex flex-col items-center justify-center w-full sm:mb-0"
-      >
+      <div class="flex flex-col items-center justify-center w-full sm:mb-0">
         <h1
           class="text-[18px] leading-[32px] font-medium text-center mb-[24px]"
         >

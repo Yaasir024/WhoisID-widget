@@ -100,8 +100,6 @@ const closeModal = () => {
             class="video"
             ref="video"
             autoplay
-            muted
-            playsinline
             v-else
           ></video>
           <canvas class="canvas hidden" ref="canvas"></canvas>
