@@ -490,7 +490,7 @@ const prev = () => {
             class="relative rounded-full h-[260px] w-[260px] mx-auto flex items-center justify-center"
           >
             <div
-              class="video-wrapper relative h-[230px] w-[230px] rounded-full overflow-hidden"
+              class="video-wrapper relative h-[230px] w-[230px] rounded-full overflow-hidden transform-gpu"
             >
               <video class="video" ref="video" autoplay></video>
               <canvas class="canvas hidden" ref="canvas"></canvas>
@@ -584,7 +584,7 @@ const prev = () => {
 
 <style scoped>
 .video-wrapper {
-  transform: translateZ(0);
+  /* transform: translateZ(0); */
 }
 .overlay {
   background: rgba(52, 64, 84, 0.5);
