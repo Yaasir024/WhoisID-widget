@@ -85,7 +85,7 @@ const prev = () => {
 
 <template>
   <section
-    class="bg-white py-[22px] min-h-screen flex flex-col justify-between"
+    class="bg-white py-[22px] min flex flex-col justify-between"
   >
     <div class="">
       <div class="flex items-center px-[18px]">
@@ -211,6 +211,9 @@ const prev = () => {
 </template>
 
 <style scoped>
+.min {
+  min-height: calc(100vh - env(safe-area-inset-top));
+}
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {

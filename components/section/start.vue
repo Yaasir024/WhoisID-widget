@@ -15,7 +15,7 @@ const startVerification = () => {
 </script>
 
 <template>
-  <section class="bg-white pt-[22px] sm:max-w-[430px] w-full mx-auto min-h-screen">
+  <section class="bg-white pt-[22px] sm:max-w-[430px] w-full mx-auto min">
     <div class="flex items-center px-[18px]">
       <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
       <span class="text-[14px] leading-[25px] text-id-green-2 font-medium"
@@ -88,6 +88,9 @@ const startVerification = () => {
 </template>
 
 <style scoped>
+.min {
+  min-height: calc(100vh - env(safe-area-inset-top));
+}
 .overlay {
   background: rgba(52, 64, 84, 0.5);
 }

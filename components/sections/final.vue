@@ -20,7 +20,7 @@ const success = ref(false);
 
 <template>
   <section
-    class="bg-white py-[22px] min-h-screen flex flex-col justify-between"
+    class="bg-white py-[22px] min flex flex-col justify-between"
   >
     <div class="pb-[100px]">
       <div class="flex items-center px-[18px]">
@@ -203,6 +203,9 @@ const success = ref(false);
 </template>
 
 <style scoped>
+.min {
+  min-height: calc(100vh - env(safe-area-inset-top));
+}
 .overlay {
   background: rgba(52, 64, 84, 0.5);
 }
