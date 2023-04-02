@@ -19,7 +19,7 @@ const constraints = {
   audio: false,
   video: {
     facingMode: isMobile ? "environment" : "user",
-    width: { ideal: 640 },
+    width: { ideal: 500 },
     height: { ideal: 500 },
   },
 };
@@ -67,7 +67,8 @@ const retake = () => {
 
 const useImg = () => {
   useVerification.data.images.utility = imgSrc.value;
-  emits("next");
+  useVerification.nextSection("building-capture");
+  stopCams();
 };
 
 const closeModal = () => {
@@ -82,12 +83,11 @@ const rotateFeed = () => {
     feedOrientation.value = "potrait";
   }
 
-  console.log(feedOrientation.value);
 };
 </script>
 
 <template>
-  <div class="bg-white h-screen flex flex-col ">
+  <div class="bg-white h-screen flex flex-col overflow-hidden">
     <div class="flex items-center px-[18px] py-[20px]">
         <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
         <span class="text-[20px] leading-[36px] font-semibold"
@@ -117,7 +117,7 @@ const rotateFeed = () => {
             class="h-[300px] w-[360px]"
             v-if="imgSrc"
           />
-          <video class="video" ref="video" v-else></video>
+          <video class="video" ref="video" :class="feedOrientation == 'potrait' ? 'rotate-0' : 'rotate-90'" v-else></video>
           <canvas class="canvas hidden" ref="canvas"></canvas>
         </div>
       </div>
