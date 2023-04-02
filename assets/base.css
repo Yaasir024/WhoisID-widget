@@ -1,11 +1,4 @@
 @font-face {
-  font-family: "Millik Regular";
-  src: url("./fonts/Millik Regular.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-}
-
-@font-face {
   font-family: "Euclid Circular";
   src: url("./fonts/Euclid-Circular-A-Regular.ttf") format("truetype"),
     url("./fonts/Euclid-Circular-A-Medium.ttf") format("truetype"),
@@ -14,14 +7,6 @@
   font-weight: 700;
   font-style: normal;
 }
-@font-face {
-  font-family: "Commons Medium";
-  src: url("./fonts/TT-Commons-Medium.otf") format("opentype"),
-    url("./fonts/TT-Commons-Regular.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-}
-
 *,
 *::before,
 *::after {
