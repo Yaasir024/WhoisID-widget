@@ -12,6 +12,9 @@ const canvas = ref(null);
 
 const imgSrc = ref("");
 
+// Error Message
+const error = ref(false);
+
 let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const constraints = {
   audio: false,

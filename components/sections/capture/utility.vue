@@ -12,6 +12,9 @@ const canvasUtility = ref(null);
 
 const imgSrc = ref("");
 
+// Error Message
+const error = ref(false);
+
 const feedOrientation = ref("potrait");
 let isMobile;
 let constraints;
@@ -40,7 +43,7 @@ const startCams = () => {
       videoUtility.value.play();
     })
     .catch(function (err) {
-      console.log("Error getting camera stream: ", err);
+      error.value = true
     });
 };
 
@@ -51,7 +54,6 @@ const stopCams = () => {
 onMounted(() => {
   startCams();
 });
-
 const snap = () => {
   canvasUtility.value
     .getContext("2d")
@@ -90,7 +92,7 @@ const rotateFeed = () => {
 </script>
 
 <template>
-  <div class="bg-white h-screen flex flex-col overflow-hidden">
+  <section class="bg-white h-screen flex flex-col overflow-hidden">
     <div class="flex items-center px-[18px] py-[20px]">
       <img src="@/assets/logo/icon.svg" alt="" class="mr-[8px]" />
       <span class="text-[20px] leading-[36px] font-semibold"
@@ -178,10 +180,58 @@ const rotateFeed = () => {
       </div>
     </div>
     <SectionsFooter />
-  </div>
+    <div class="">
+      <div
+        class="overlay fixed bottom-0 left-0 right-0 top-0 z-[25]"
+        v-if="error"
+      ></div>
+      <transition name="error">
+        <div
+          class="fixed bottom-0 left-0 right-0 top-0 flex items-center justify-center z-30"
+          v-if="error"
+        >
+          <div
+            class="relative modal h-[280px] max-w-[430px] w-full bg-white p-[32px] rounded-[32px] sm:ml-[-14px] flex items-center flex-col"
+          >
+            <button class="absolute top-[20px] left-[20px]">
+              <img
+                src="@/assets/icon/close.svg"
+                alt=""
+                class=""
+                @click="error = false"
+              />
+            </button>
+            <img
+              src="@/assets/icon/error.svg"
+              alt=""
+              class=""
+            />
+            <h2 class="text-[16px] leading-[29px] font-semibold mt-[16px] text-center">
+              Sorry, camera access is currently unavailable. Another webpage might be using the camera or access permission has not been granted. Please check your browser settings and try again.
+            </h2>
+          </div>
+        </div>
+      </transition>
+    </div>
+  </section>
 </template>
 
 <style scoped>
+.overlay {
+  background: rgba(52, 64, 84, 0.5);
+}
+
+/* Nav Animation */
+.error-enter-active,
+.error-leave-active {
+  transition: all 0.4s ease;
+}
+.error-enter-from,
+.error-leave-to {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
 .modal {
   height: calc(100vh - 48px);
 }

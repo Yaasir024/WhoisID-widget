@@ -12,6 +12,7 @@ const startVerification = () => {
     useVerification.currentSection = "1";
   }
 };
+
 </script>
 
 <template>

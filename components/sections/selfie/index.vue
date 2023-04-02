@@ -374,13 +374,14 @@ const paths = ref([
     dashOffset: 107,
   },
 ]);
-const pathColors = ref(Array(paths.length).fill("#C9CDD3"));
-const pathDash = ref(Array(paths.length).fill({ array: 92, offset: 107 }));
 
 const video = ref(null);
 const canvas = ref(null);
 
 const imgSrc = ref("");
+
+// Error Message
+const error = ref(false);
 
 let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const constraints = {
@@ -392,6 +393,7 @@ const constraints = {
   },
 };
 
+// Start Camera
 const startCams = () => {
   navigator.mediaDevices
     .getUserMedia(constraints)
@@ -405,13 +407,19 @@ const startCams = () => {
       video.value.play();
     })
     .catch(function (err) {
-      console.log("Error getting camera stream: ", err);
-      alert(err);
+      error.value = true
     });
 };
+// Stop Camera
+// const stopCams = () => {
+//   let tracks = video.value.srcObject.getTracks();
+//   tracks.forEach((track) => track.stop());
+// };
 onMounted(() => {
   startCams();
 });
+
+
 
 const snap = () => {
   let index = 0;
@@ -446,15 +454,7 @@ const snap = () => {
   }, 50 * paths.value.length);
 };
 
-const next = () => {
-  // if (
-  //   (useVerification.data.country != "") &
-  //   (useVerification.data.phone != "")
-  // ) {
-  //   useVerification.nextSection("selfie");
-  // }
-};
-
+// PReviouse PAGE
 const prev = () => {
   useVerification.nextSection("1");
   let tracks = video.value.srcObject.getTracks();
@@ -546,10 +546,58 @@ const prev = () => {
       </div>
     </div>
     <SectionsFooter />
+    <div class="">
+      <div
+        class="overlay fixed bottom-0 left-0 right-0 top-0 z-[25]"
+        v-if="error"
+      ></div>
+      <transition name="error">
+        <div
+          class="fixed bottom-0 left-0 right-0 top-0 flex items-center justify-center z-30"
+          v-if="error"
+        >
+          <div
+            class="relative modal h-[280px] max-w-[430px] w-full bg-white p-[32px] rounded-[32px] sm:ml-[-14px] flex items-center flex-col"
+          >
+            <button class="absolute top-[20px] left-[20px]">
+              <img
+                src="@/assets/icon/close.svg"
+                alt=""
+                class=""
+                @click="error = false"
+              />
+            </button>
+            <img
+              src="@/assets/icon/error.svg"
+              alt=""
+              class=""
+            />
+            <h2 class="text-[16px] leading-[29px] font-semibold mt-[16px] text-center">
+              Sorry, camera access is currently unavailable. Another webpage might be using the camera or access permission has not been granted. Please check your browser settings and try again.
+            </h2>
+          </div>
+        </div>
+      </transition>
+    </div>
   </section>
 </template>
 
 <style scoped>
+.overlay {
+  background: rgba(52, 64, 84, 0.5);
+}
+
+/* Nav Animation */
+.error-enter-active,
+.error-leave-active {
+  transition: all 0.4s ease;
+}
+.error-enter-from,
+.error-leave-to {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
 .video {
   width: 100%; /* ensures video fills the circular container */
   height: 100%; /* ensures video fills the circular container */

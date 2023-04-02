@@ -5,19 +5,11 @@ const useVerification = useVerificationStore();
 
 const useSelfie = () => {
   useVerification.nextSection("address");
-  // if (
-  //   (useVerification.data.country != "") &
-  //   (useVerification.data.phone != "")
-  // ) {
-  //   useVerification.nextSection("selfie");
-  // }
 };
 
 const retake = () => {
   useVerification.nextSection("selfie");
   useVerification.data.images.selfie = ''
-  // useVerification.data.country = "";
-  // useVerification.data.phone = "";
 };
 </script>
 
