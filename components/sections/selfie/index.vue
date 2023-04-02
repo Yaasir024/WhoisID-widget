@@ -386,9 +386,9 @@ let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const constraints = {
   audio: false,
   video: {
-    // facingMode: isMobile ? "environment" : "user",
-    width: { ideal: 640 },
-    height: { ideal: 480 },
+    facingMode:  "user",
+    // width: { ideal: 640 },
+    // height: { ideal: 480 },
   },
 };
 
@@ -396,11 +396,12 @@ const startCams = () => {
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then(function (stream) {
-      video.value.srcObject = stream;
       // Fix for iOS Safari from https://leemartin.dev/hello-webrtc-on-safari-11-e8bcb5335295
       video.value.setAttribute("autoplay", "");
       video.value.setAttribute("muted", "");
       video.value.setAttribute("playsinline", "");
+
+      video.value.srcObject = stream;
       video.value.play();
     })
     .catch(function (err) {
@@ -491,7 +492,7 @@ const prev = () => {
             <div
               class="relative h-[230px] w-[230px] rounded-full overflow-hidden"
             >
-              <video class="video" ref="video"></video>
+              <video class="video" ref="video" autoplay></video>
               <canvas class="canvas hidden" ref="canvas"></canvas>
             </div>
 
