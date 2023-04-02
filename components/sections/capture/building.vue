@@ -52,8 +52,8 @@ const snap = () => {
           Take a front image of your bulding
         </h1>
         <div class="mt-[24px] pb-[12px]">
-          <div class="">
-            <img src="@/assets/images/house.png" alt="" class="" />
+          <div class="w-full">
+            <img src="@/assets/images/house.png" alt="" class="w-full" />
           </div>
           <div class="mt-[18px] flex justify-center">
             <button class="flex items-center">
