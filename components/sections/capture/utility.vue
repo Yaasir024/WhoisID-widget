@@ -19,7 +19,7 @@ const constraints = {
   audio: false,
   video: {
     facingMode: isMobile ? "environment" : "user",
-    width: { ideal: 500 },
+    width: { ideal: 580 },
     height: { ideal: 500 },
   },
 };

@@ -146,11 +146,11 @@ const prev = () => {
             <div class="relative" ref="countyDropdown">
               <!-- [#D0D5DD] -->
               <div
-                class="country-select flex items-center justify-between h-[48px] w-full pl-[14px] border border-[#D0D5DD] rounded-lg overflow-hidden"
+                class="country-select flex items-center justify-between h-[48px] w-full pl-[14px] border border-[#D0D5DD] rounded-lg overflow-hidden text-[#333] leading-[28px] text-[15px]"
                 :class="
                   showDropdown
-                    ? 'country-select-hover text-black'
-                    : 'country-select text-id-gray-2'
+                    ? 'country-select-hover'
+                    : 'country-select'
                 "
                 @click="showDropdown = !showDropdown"
               >
