@@ -113,9 +113,17 @@ const success = ref(false);
             <div class="w-[128px] shrink-0">Alias</div>
             <div class="w-full">{{ useVerification.data.address.alias }}</div>
           </div>
+          <div class="flex items-center justify-end">
+            <button class="flex items-center" @click="recapture('address')">
+              <span class="text-[16px] leading-[28px] text-[#188084]"
+                >Edit</span
+              >
+              <img src="@/assets/icon/edit.svg" alt="" class="ml-[4px]" />
+            </button>
+          </div>
         </div>
         <div class="mt-[24px]">
-          <h1 class="text-[16px] leading-[29px] tfont-semibold mb-[8px]">
+          <h1 class="text-[16px] leading-[29px] font-semibold mb-[8px]">
             Utility bill
           </h1>
           <img :src="useVerification.data.images.utility" alt="" class="w-full" />

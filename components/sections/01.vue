@@ -163,7 +163,7 @@ const prev = () => {
             >
             <div class="">
               <div
-                class="flex items-center h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg"
+                class="flex items-center h-[48px] w-full px-[14px] border border-[#D0D5DD] rounded-lg text-[#00101B]"
               >
                 <img
                   :src="fullCountryData.flag"

@@ -22,7 +22,7 @@ const startVerification = () => {
         >WhoisID.Africa</span
       >
     </div>
-    <div class="px-[33px] mb-[150px]">
+    <div class="px-[33px] mb-[55px]">
       <div class="mt-[46px]">
         <img
           src="@/assets/images/start.png"
