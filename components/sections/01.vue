@@ -109,7 +109,7 @@ const prev = () => {
         <div class="fields">
           <div class="flex flex-col cursor-pointer">
             <span
-              class="text-[16px] leading-[29px] text-[#667085] font-medium mb-[20px]"
+              class="text-[16px] leading-[29px] text-[#667085] font-medium mt-[24px] mb-[20px]"
               >Country</span
             >
             <div class="relative" ref="countyDropdown">
@@ -184,7 +184,7 @@ const prev = () => {
         </div>
         <div class="mt-[8px] flex items-center">
           <img src="@/assets/icon/q-mark.svg" alt="" class="mr-[5px]" />
-          <span class="text-id-gray-2 text-[12px] leading-[22px]"
+          <span class="text-id-gray-2 text-[11px] sm:text-[12px] leading-[22px]"
             >Enter the phone number linked to your government issued ID</span
           >
         </div>
