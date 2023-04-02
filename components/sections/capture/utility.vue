@@ -19,8 +19,8 @@ const constraints = {
   audio: false,
   video: {
     facingMode: isMobile ? "environment" : "user",
-    width: { ideal: 580 },
-    height: { ideal: 500 },
+    // width: { ideal: 580 },
+    // height: { ideal: 500 },
   },
 };
 
@@ -28,11 +28,11 @@ const startCams = () => {
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then(function (stream) {
-      video.value.srcObject = stream;
       // Fix for iOS Safari from https://leemartin.dev/hello-webrtc-on-safari-11-e8bcb5335295
       video.value.setAttribute("autoplay", "");
       video.value.setAttribute("muted", "");
       video.value.setAttribute("playsinline", "");
+      video.value.srcObject = stream;
       video.value.play();
     })
     .catch(function (err) {
@@ -117,7 +117,7 @@ const rotateFeed = () => {
             class="h-[300px] w-[360px]"
             v-if="imgSrc"
           />
-          <video class="video" ref="video" :class="feedOrientation == 'potrait' ? 'rotate-0' : 'rotate-90'" v-else></video>
+          <video class="video" ref="video" autoplay muted playsinline :class="feedOrientation == 'potrait' ? 'rotate-0' : 'rotate-90'" v-else></video>
           <canvas class="canvas hidden" ref="canvas"></canvas>
         </div>
       </div>

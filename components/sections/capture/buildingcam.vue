@@ -17,8 +17,8 @@ const constraints = {
   audio: false,
   video: {
     facingMode: isMobile ? "environment" : "user",
-    width: { ideal: 580 },
-    height: { ideal: 500 },
+    // width: { ideal: 580 },
+    // height: { ideal: 500 },
   },
 };
 
@@ -26,11 +26,11 @@ const startCams = () => {
   navigator.mediaDevices
     .getUserMedia(constraints)
     .then(function (stream) {
-      video.value.srcObject = stream;
       // Fix for iOS Safari from https://leemartin.dev/hello-webrtc-on-safari-11-e8bcb5335295
       video.value.setAttribute("autoplay", "");
       video.value.setAttribute("muted", "");
       video.value.setAttribute("playsinline", "");
+      video.value.srcObject = stream;
       video.value.play();
     })
     .catch(function (err) {
@@ -95,12 +95,21 @@ const closeModal = () => {
       </h1>
       <div class="">
         <div class="camera h-[300px] w-[360px] rounded-lg overflow-hidden">
-          <img :src="imgSrc" alt="" class=" h-[300px] w-[360px]" v-if="imgSrc" />
-          <video class="video" ref="video" v-else></video>
+          <img :src="imgSrc" alt="" class="h-[300px] w-[360px]" v-if="imgSrc" />
+          <video
+            class="video"
+            ref="video"
+            autoplay
+            muted
+            playsinline
+            v-else
+          ></video>
           <canvas class="canvas hidden" ref="canvas"></canvas>
         </div>
       </div>
-      <div class="flex flex-col items-center justify-center w-full mb-[140px] sm:mb-0">
+      <div
+        class="flex flex-col items-center justify-center w-full mb-[140px] sm:mb-0"
+      >
         <h1
           class="text-[18px] leading-[32px] font-medium text-center mb-[24px]"
         >
