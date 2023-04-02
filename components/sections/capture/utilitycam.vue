@@ -12,6 +12,8 @@ const canvas = ref(null);
 
 const imgSrc = ref("");
 
+const feedOrientation = ref("potrait");
+
 let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const constraints = {
   audio: false,
@@ -72,6 +74,16 @@ const closeModal = () => {
   emits("close");
   stopCams();
 };
+
+const rotateFeed = () => {
+  if (feedOrientation.value == "potrait") {
+    feedOrientation.value = "landscape";
+  } else if (feedOrientation.value == "landscape") {
+    feedOrientation.value = "potrait";
+  }
+
+  console.log(feedOrientation.value);
+};
 </script>
 
 <template>
@@ -95,10 +107,13 @@ const closeModal = () => {
         Take an image of your utility bill
       </h1>
       <div class="">
-        <div
-          class="camera h-[250px] sm:w-[360px] rounded-lg overflow-hidden"
-        >
-          <img :src="imgSrc" alt="" class="h-[250px] w-full sm:w-[360px] " v-if="imgSrc" />
+        <div class="camera h-[250px] sm:w-[360px] rounded-lg overflow-hidden">
+          <img
+            :src="imgSrc"
+            alt=""
+            class="h-[250px] w-full sm:w-[360px]"
+            v-if="imgSrc"
+          />
           <video class="video" ref="video" v-else></video>
           <canvas class="canvas hidden" ref="canvas"></canvas>
         </div>
@@ -111,13 +126,34 @@ const closeModal = () => {
         >
           Ensure the image fits in this frame
         </h1>
-        <img
-          src="@/assets/icon/capture-btn.svg"
-          alt=""
-          class="cursor-pointer"
-          @click="snap()"
+        <div
+          class="relative w-full flex items-center justify-center"
           v-if="imgSrc == ''"
-        />
+        >
+          <img
+            src="@/assets/icon/capture-btn.svg"
+            alt=""
+            class="cursor-pointer"
+            @click="snap()"
+          />
+          <button
+            class="absolute right-[20px] top-[20px] h-[38px] w-[38px] rounded-full bg-white/30 flex items-center justify-center transition-all duration-150 ease-in-out"
+            :class="feedOrientation == 'potrait' ? 'rotate-0' : 'rotate-180'"
+            @click="rotateFeed()"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              height="20"
+              width="20"
+              fill="#ffffff"
+            >
+              <path
+                d="M0 224c0 17.7 14.3 32 32 32s32-14.3 32-32c0-53 43-96 96-96H320v32c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l64-64c12.5-12.5 12.5-32.8 0-45.3l-64-64c-9.2-9.2-22.9-11.9-34.9-6.9S320 19.1 320 32V64H160C71.6 64 0 135.6 0 224zm512 64c0-17.7-14.3-32-32-32s-32 14.3-32 32c0 53-43 96-96 96H192V352c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64c-12.5 12.5-12.5 32.8 0 45.3l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V448H352c88.4 0 160-71.6 160-160z"
+              />
+            </svg>
+          </button>
+        </div>
         <div class="flex items-center justify-between w-full" v-if="imgSrc">
           <button
             class="text-white text-[20px] leading-[32px] font-semibold py-[6px] px-[14px] rounded-[48px] border border-white"

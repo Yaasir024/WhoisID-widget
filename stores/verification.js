@@ -3,8 +3,18 @@ import { defineStore } from "pinia";
 export const useVerificationStore = defineStore("verification", () => {
   const currentSection = ref("start");
 
+  const scrollToTop = () => {
+    const currentPosition =
+      window.pageYOffset || document.documentElement.scrollTop;
+
+    if (currentPosition > 0) {
+      window.scrollTo(0, currentPosition - 80);
+      window.requestAnimationFrame(scrollToTop);
+    }
+  };
   const nextSection = (section) => {
     currentSection.value = section;
+    scrollToTop()
   };
 
   const data = reactive({
