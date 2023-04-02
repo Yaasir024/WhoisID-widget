@@ -85,7 +85,7 @@ const prev = () => {
 
 <template>
   <section
-    class="bg-white py-[22px] min-h-screen flex flex-col justify-between"
+    class="bg-white pt-[22px] sm:max-w-[430px] w-full mx-auto min-h-screen flex flex-col justify-between"
   >
     <div class="">
       <div class="flex items-center px-[18px]">
