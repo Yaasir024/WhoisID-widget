@@ -386,7 +386,7 @@ let isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 const constraints = {
   audio: false,
   video: {
-    facingMode:  "user",
+    facingMode: "user",
     // width: { ideal: 640 },
     // height: { ideal: 480 },
   },
@@ -406,6 +406,7 @@ const startCams = () => {
     })
     .catch(function (err) {
       console.log("Error getting camera stream: ", err);
+      alert(err);
     });
 };
 onMounted(() => {
@@ -429,21 +430,20 @@ const snap = () => {
         if (path.animationCount == 0) {
         }
       }, 50 * (index + 1));
-    })
+    });
   }
   setTimeout(() => {
     canvas.value
       .getContext("2d")
       .drawImage(video.value, 0, 0, canvas.value.width, canvas.value.height);
-  
+
     let image_data_url = canvas.value.toDataURL("image/jpeg");
     useVerification.data.images.selfie = image_data_url;
-  
+
     let tracks = video.value.srcObject.getTracks();
     tracks.forEach((track) => track.stop());
     useVerification.nextSection("selfie-registered");
-
-  }, 50 * (paths.value.length))
+  }, 50 * paths.value.length);
 };
 
 const next = () => {
@@ -573,5 +573,4 @@ const prev = () => {
     transform: translate(-50%, -50%) rotate(360deg);
   }
 } */
-
 </style>
