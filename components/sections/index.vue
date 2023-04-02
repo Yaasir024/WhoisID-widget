@@ -7,7 +7,7 @@ const useVerification = useVerificationStore();
 <template>
   <main class="">
     <div class="overflow-y-scroll relative">
-      <div class="sm:max-w-[430px] w-full mx-auto h-screen">
+      <div class="sm:max-w-[430px] w-full mx-auto">
         <SectionsStart v-if="useVerification.currentSection == 'start'" />
         <Sections01 v-if="useVerification.currentSection == '1'" />
         <SectionsSelfie v-if="useVerification.currentSection == 'selfie'" />

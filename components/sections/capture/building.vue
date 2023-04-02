@@ -30,7 +30,7 @@ const snap = () => {
 
 <template>
   <section
-    class="bg-white py-[22px] min-h-screen flex flex-col justify-between"
+    class="bg-white py-[22px] h-screen flex flex-col justify-between"
   >
     <div class="">
       <div class="flex items-center px-[18px]">
