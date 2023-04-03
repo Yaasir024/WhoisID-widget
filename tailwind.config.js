@@ -10,9 +10,9 @@ module.exports = {
   theme: {
     fontFamily: {
       inter: ["Inter"],
-      millik: ["Millik Regular"],
+      "dm-sans": ["DM Sans"],
       euclid: ["Euclid Circular"],
-      commons: ["Commons Medium"],
+      Cookie: ["Cookie"],
     },
     screens: {
       xs: "600px",
@@ -48,6 +48,7 @@ module.exports = {
         "id-gray-2": "#98A2B3",
         "id-gray-4": "#F7F8F9",
         "id-gray-5": "#EFF1F7",
+        "id-neutral-100": "#131313",
       },
       flex: {
         "25%": "0 0 25%",
